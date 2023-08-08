@@ -1,0 +1,57 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem{Allen2011}
+T.~T. Allen, \textit{Introduction to {D}iscrete {E}vent {S}imulation and
+  {A}gent-based {M}odeling: {V}oting {S}ystems{,} {H}ealth {C}are{,}
+  {M}ilitary{,} and {M}anufacturing}, Springer, New York, 2011.
+
+\bibitem{Ballen2011}
+T.~T. Ballen, \textit{Introduction to {D}iscrete {E}vent {S}imulation and
+  {A}gent-based {M}odeling: {V}oting {S}ystems{,} {H}ealth {C}are{,}
+  {M}ilitary{,} and {M}anufacturing}, 2nd edn., Springer, New York, 2011.
+
+\bibitem{Blanchard2015}
+G.~Blanchard and R.~Loubere, \textit{High-order {C}onservative {R}emapping with
+  a posteriori {MOOD} stabilization on polygonal meshes}, 2015. Available from:
+  \url{http://www.emn.fr/z-info/choco-solver/} [last accessed {M}ay 2011].
+
+\bibitem{Boggs2002}
+R.~Boggs, J.~Bozman, and R.~Perry, \textit{Reducing downtime and business loss:
+  {A}dressing business risk with effective technology},   Technical report
+  91-18, International {D}ata {C}orporation ({IDC}), Sernageomin, 2002.
+
+\bibitem{Elbaum2002}
+S.~Elbaum, A.~G. Malishevsky, and G.~Rothermel, \textit{Test case
+  prioritization: a family of empirical studies}, IEEE {T}ransactions on
+  {S}oftware {E}ngineering \textbf{28} (February 2002), no.~2, 159--182.
+
+\bibitem{Rothermel1997}
+G.~Rothermel, \textit{A safe efficient regression test selection technique},
+  ACM {T}ransactions on {S}oftware {E}ngineering and {M}ethodology \textbf{6}
+  (1997), no.~2, 173--210.
+
+\bibitem{ROTHERMEL1998}
+G.~Rothermel et~al., \textit{A safe efficient regression test selection
+  technique}, {ACM} {T}ransactions on {S}oftware {E}ngineering and
+  {M}ethodology \textbf{6} (1998), no.~2, 173--210.
+
+\bibitem{Schulz2012}
+A.~Schulz and G.~Doblhammer, \textit{Aktueller und zuk{\"{u}}nftiger
+  {K}rankenbestand von {D}emenz in {D}eutschland auf basis der outinedaten der
+  {AOK}. ({C}urrent and future number of people suffering from dementia in
+  {G}ermany based on routine data from the {AOK}.)}, C.~Gnster, J.~Klose, and
+  N.~Schmacke, (eds.), \textit{Versorgungs-Report}, IEEE {P}ress, Piscataway,
+  NJ, USA, 161--175.
+
+\bibitem{Yoo2007}
+S.~Yoo and M.~Harman, \textit{Pareto efficient multi-objective test case
+  selection}, \textit{Proceedings of the {I}nternational {C}onference on
+  {S}oftware {T}esting and {A}nalysis}, London, UK, 140--150.
+
+\end{thebibliography}
