@@ -2718,7 +2718,7 @@ Volume\ \@jvol, Article ID\ \@artid, \thepage~pages\par%
 \else%
 \if@AMSrefstyle%
    \usepackage[numbers]{natbib}%
-   \bibliographystyle{WileyNJD-AMS}%
+   \bibliographystyle{references}%
    \bibpunct{(}{)}{,}{}{}{}%
 \setcitestyle{numbers,square}
  %  \renewcommand{\bibfont}{\reset@font\fontfamily{\rmdefault}\fontsize{8bp}{10}\selectfont\baselineskip=10\p@}%
