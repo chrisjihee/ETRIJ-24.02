@@ -329,7 +329,7 @@
         \item Each tag output by the MeCab-ko system was converted to the corresponding tag in the Sejong tagset.
         \item Chinese characters were converted to Chinese character tags (SH) even if they were semantically used as nouns, and consecutive Chinese characters were converted to a single morpheme.
         \item Similarly, symbol, numeral, ending, and postposition in the same tag were converted to a single morpheme, and decimal expressions were treated as a single morpheme, including the midpoint and the numbers before and after.
-        \item If the first lemma letter of the ending is `[eo]', `[yeo]', or `[ah]', it is unified as `[eo]', and if it is `[eot]', `[yeo]', or `[ass]', it is unified as `[eot]'. %`어[eo]', `여[yeo]', or `아[ah]' % `었[eot]', `였[yeo]', or `았[ass]'
+        \item If the first lemma letter of the ending is `[eo]', `[yeo]', or `[ah]', it is unified as `[eo]', and if it is `[eot]', `[yeot]', or `[ass]', it is unified as `[eot]'. %`어[eo]', `여[yeo]', or `아[ah]' % `었[eot]', `였[yeot]', or `았[ass]'
         \item Root tags (XR) used alone without affixes were replaced with common nouns (NNG) because they are mainly used in the Sejong corpus only.
         \item As mentioned in ~\cite{KimIH2010}, connective endings (EC) and sentence-closing endings (EF) are not clearly defined in the tagging guidelines, and there are cases where they are used interchangeably in the corpus, to ensure that we evaluated them without distinguishing them.
         \item The distinction between `[geot]' and `[geo]' is unclear in the tagging guidelines, and there are cases where they are used interchangeably in the corpus, hence, we did not distinguish between them. %`것[geot]' and `거[geo]'
