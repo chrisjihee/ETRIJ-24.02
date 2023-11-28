@@ -43,28 +43,27 @@
     \footnotetext{\textbf{Abbreviations:} ANA, anti-nuclear antibodies; APC, antigen-presenting cells; IRF, interferon regulatory factor}
 
 
-    \begin{table*}[]
-        \caption{Statistics for the Korean morphological corpus as a whole and for training/test data}\label{tab:data-statistics}
+    \begin{table*}[t]
+        \caption{Maximum performance of alternative paths as correct answers}\label{tab:maximum-performance}
         \centering
-        \begin{tabular*}{500pt}{@{\extracolsep{\fill}}m{10mm}m{8mm}m{10mm}m{12mm}m{8mm}m{10mm}m{12mm}m{8mm}m{9mm}m{9mm}m{10mm}@{}}
+        \begin{tabular*}{500pt}{@{\extracolsep\fill}cccD{.}{.}{3}c@{\extracolsep\fill}}
             \toprule
-            \multirow{2}{*}{Corpus}                       & \multirow{2}{*}{Style} & \multicolumn{3}{c}{Raw Data}                 & \multicolumn{3}{c}{Training Data}            & \multicolumn{3}{c}{Test Data}             \\
-            \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
-            ~                                             & ~                      & Sentences & Eojeols    & Morphs\newline/Sent & Sentences & Eojeols    & Morphs\newline/Sent & Sentences & Eojeols & Morphs\newline/Sent \\
+            & \multicolumn{2}{@{}c@{}}{\textbf{Written Language Evaluation Set}} & \multicolumn{2}{@{}c@{}}{\textbf{Spoken Language Evaluation Set}} \\\cmidrule{2-3}\cmidrule{4-5}
+            alternative range & eojeol accuracy & average number of alternative & \multicolumn{1}{@{}l@{}}{eojeol accuracy}  & average number of alternative \\
             \midrule
-            Sejong\newline Corpus                         & written                & 854,475   & 10,052,869 & 26.8                & 194,822   & 2,681,582  & 31.0                & 49,922    & 678,578 & 30.6                \\
-            \midrule
-            \multirow{3}{*}{UCorpus}                      & written                & 5,456,101 & 62,462,158 & 25.1                & 4,998,560 & 57,393,332 & 25.4                & 53,003    & 598,413 & 25.0                \\
-            ~                                             & semi-spoken            & 393,770   & 3,401,444  & 18.4                & 334,061   & 2,960,146  & 19.4                & 38,960    & 332,285 & 18.6                \\
-            ~                                             & spoken                 & 627,380   & 2,819,427  & 10.9                & 429,215   & 2,295,940  & 13.0                & 62,399    & 279,545 & 11.1                \\
-            \midrule
-            \multirow{2}{*}{\makecell{Everyone \\Corpus}} & written                & 150,082   & 2,000,213  & 30.4                & 129,352   & 1,713,367  & 30.5                & 14,442    & 191,223 & 30.5                \\
-            ~                                             & spoken                 & 221,371   & 1,006,287  & 8.7                 & 137,869   & 714,021    & 10.5                & 19,789    & 85,316  & 8.6                 \\
+            no alternative    & 96.36           & 1.0                           & 92.54                                     & 1.0                           \\
+            secondary         & 98.74           & 25.7                          & 97.27                                     & 12.9                          \\
+            tertiary          & 98.96           & 47.8                          & 97.81                                     & 23.6                          \\
+            quarternary       & 99.01           & 69.6                          & 97.95                                     & 34.2                          \\
+            quinary           & 99.02           & 91.1                          & 98.01                                     & 44.5                          \\
             \bottomrule
         \end{tabular*}
-
+        \begin{tablenotes}
+            \footnotesize
+            \item\hspace{2mm} * Written Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone's Corpus (4,800 sentences total)
+            \item\hspace{2mm} * Spoken Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone's Corpus (4,800 sentences total)
+        \end{tablenotes}
     \end{table*}
-
 
     \section{Introduction}\label{sec:intro}
 
@@ -95,26 +94,25 @@
     For example, it may be cost-effective to select one long morpheme than several short morphemes, but this may often lead to an incorrect analysis.
     The main motivation for this study was that the path that minimizes the costs for the nodes and links may not be the optimal path.
 
-    \begin{table*}[t]
-        \caption{Maximum performance of alternative paths as correct answers}\label{tab:maximum-performance}
+    \begin{table*}[]
+        \caption{Statistics for the Korean morphological corpus as a whole and for training/test data}\label{tab:data-statistics}
         \centering
-        \begin{tabular*}{500pt}{@{\extracolsep\fill}cccD{.}{.}{3}c@{\extracolsep\fill}}
+        \begin{tabular*}{500pt}{@{\extracolsep{\fill}}m{12mm}m{8mm}m{10mm}m{12mm}m{8mm}m{10mm}m{12mm}m{8mm}m{9mm}m{9mm}m{10mm}@{}}
             \toprule
-            & \multicolumn{2}{@{}c@{}}{\textbf{Written Language Evaluation Set}} & \multicolumn{2}{@{}c@{}}{\textbf{Spoken Language Evaluation Set}} \\\cmidrule{2-3}\cmidrule{4-5}
-            alternative range & eojeol accuracy & average number of alternative & \multicolumn{1}{@{}l@{}}{eojeol accuracy}  & average number of alternative \\
+            \multirow{2}{*}{Corpus}                         & \multirow{2}{*}{Style} & \multicolumn{3}{c}{Raw Data}                 & \multicolumn{3}{c}{Training Data}            & \multicolumn{3}{c}{Test Data}             \\
+            \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+            ~                                               & ~                      & sentences & eojeols    & morphs\newline/sent & sentences & eojeols    & morphs\newline/sent & sentences & eojeols & morphs\newline/sent \\
             \midrule
-            no alternative    & 96.36           & 1.0                           & 92.54                                     & 1.0                           \\
-            secondary         & 98.74           & 25.7                          & 97.27                                     & 12.9                          \\
-            tertiary          & 98.96           & 47.8                          & 97.81                                     & 23.6                          \\
-            quarternary       & 99.01           & 69.6                          & 97.95                                     & 34.2                          \\
-            quinary           & 99.02           & 91.1                          & 98.01                                     & 44.5                          \\
+            Sejong\newline Corpus                           & written                & 854,475   & 10,052,869 & 26.8                & 194,822   & 2,681,582  & 31.0                & 49,922    & 678,578 & 30.6                \\
+            \midrule
+            \multirow{3}{*}{UCorpus}                        & written                & 5,456,101 & 62,462,158 & 25.1                & 4,998,560 & 57,393,332 & 25.4                & 53,003    & 598,413 & 25.0                \\
+            ~                                               & semi-spoken            & 393,770   & 3,401,444  & 18.4                & 334,061   & 2,960,146  & 19.4                & 38,960    & 332,285 & 18.6                \\
+            ~                                               & spoken                 & 627,380   & 2,819,427  & 10.9                & 429,215   & 2,295,940  & 13.0                & 62,399    & 279,545 & 11.1                \\
+            \midrule
+            \multirow{2}{*}{\makecell{Everyone's \\Corpus}} & written                & 150,082   & 2,000,213  & 30.4                & 129,352   & 1,713,367  & 30.5                & 14,442    & 191,223 & 30.5                \\
+            ~                                               & spoken                 & 221,371   & 1,006,287  & 8.7                 & 137,869   & 714,021    & 10.5                & 19,789    & 85,316  & 8.6                 \\
             \bottomrule
         \end{tabular*}
-        \begin{tablenotes}
-            \footnotesize
-            \item\hspace{2mm} * Written Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone Corpus (4,800 sentences total)
-            \item\hspace{2mm} * Spoken Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone Corpus (4,800 sentences total)
-        \end{tablenotes}
     \end{table*}
 
     To identify cases in which a suboptimal solution is actually the best solution according to the best path calculation, we modified the best path calculation method to generate suboptimal analysis results and verified the extent to which they are correct.
@@ -162,15 +160,21 @@
 
     \subsection{Korean Morphological Analysis Corpora}\label{subsec3.1}
 
-    A representative corpus for training Korean morphological analysis models is the Sejong morphological analysis corpus, which is often referred to as the Sejong corpus.
-    The Sejong corpus, a major output of the 21st Century Sejong Project, contains 15 million words and is the mainstay of Korean morphological analysis research~\cite{ChoeMW2008}.
+    In this study, we used three major corpora to train and evaluate Korean morphological analysis models, each of which has unique characteristics and serves different research purposes.
 
-    Subsequent efforts have extended and refined this foundational work.
-    The University of Ulsan addressed the limitations of the Sejong corpus~\cite{KimIH2010} and introduced [UCorpus], an expanded corpus of 63 million words.
-    This expanded corpus not only adds new data but also corrects errors in the original Sejong corpus~\cite{UCorpusHG}.
-    To further extend this step, the National Institute of Korean Language launched a massive Korean corpus construction project in 2018.
-    The fruits of this labor, a corpus called <Everyone Corpus>, were released to the public in 2020~\cite{EveryoneCorpus}.
-    A special offshoot of this project produced a morpheme-tagged corpus of three million words, including spoken languages ~\cite{KimIH2019}.
+    \textbf{Sejong Corpus}: Originating from the 21st Century Sejong Project, this corpus consists of a total of 15 million eojeols, including the raw untagged corpus, and forms the backbone of Korean morphological analysis research~\cite{ChoeMW2008}.
+    It provides a wide variety of linguistic patterns and structures that are important for baseline training and validation of morphological analysis models, and has been used for performance comparisons with other studies.
+    In most of the previous studies, only a part of the Sejong corpus was used for experiments, and in this study, we used the dataset provided by the researchers in ~\cite{NaSH2014}.
+
+    \textbf{UCorpus (University of Ulsan Corpus)}~\cite{UCorpusHG}: This is an extension of the Sejong corpus, which is constantly being maintained and added to by the University of Ulsan, significantly increasing its volume to 63 million eojeols and testing the adaptability and accuracy of the model to a wider range of data.
+    The expansion includes corrections to previously raised errors ~\cite{KimIH2010} and a number of annotation outputs for new data, providing a substantial basis for comprehensive linguistic analysis.
+
+    \textbf{Everyone's Corpus}~\cite{EveryoneCorpus}: Launched by the National Institute of the Korean Language in 2020, the Everybody's Corpus enriches the data landscape with web texts and spoken language materials that reflect contemporary language use~\cite{KimIH2019}.
+    This modern corpus reflects the dynamic evolution of the Korean language and is playing a pivotal role in improving models for capturing the nuances of current Korean usage.
+
+    Table~\ref{tab:data-statistics} details the specific number of sentences and words in each corpus, and the data subsets extracted for model training and evaluation.
+    During the training data conversion process, we first removed duplicate sentences and excluded sentences with annotation errors or other problems.
+    We can see that many duplicate sentences occur, especially in spoken language.
 
     \subsection{Training Example Transformation}\label{subsec3.2}
 
