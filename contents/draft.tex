@@ -48,14 +48,14 @@
         \centering
         \begin{tabular*}{500pt}{@{\extracolsep\fill}cccD{.}{.}{3}c@{\extracolsep\fill}}
             \toprule
-            & \multicolumn{2}{@{}c@{}}{\textbf{Written Language Evaluation Set}} & \multicolumn{2}{@{}c@{}}{\textbf{Spoken Language Evaluation Set}} \\\cmidrule{2-3}\cmidrule{4-5}
-            alternative range & eojeol accuracy & average number of alternative & \multicolumn{1}{@{}l@{}}{eojeol accuracy}  & average number of alternative \\
+            ~                 & \multicolumn{2}{@{}c@{}}{Written Language Evaluation Set} & \multicolumn{2}{@{}c@{}}{Spoken Language Evaluation Set}                  \\ \cmidrule{2-3} \cmidrule{4-5}
+            alternative range & eojeol accuracy & average number of alternative           & \multicolumn{1}{@{}l@{}}{eojeol accuracy} & average number of alternative \\
             \midrule
-            no alternative    & 96.36           & 1.0                           & 92.54                                     & 1.0                           \\
-            secondary         & 98.74           & 25.7                          & 97.27                                     & 12.9                          \\
-            tertiary          & 98.96           & 47.8                          & 97.81                                     & 23.6                          \\
-            quarternary       & 99.01           & 69.6                          & 97.95                                     & 34.2                          \\
-            quinary           & 99.02           & 91.1                          & 98.01                                     & 44.5                          \\
+            no alternative    & 96.36           & 1.0                                     & 92.54                                     & 1.0                           \\
+            secondary         & 98.74           & 25.7                                    & 97.27                                     & 12.9                          \\
+            tertiary          & 98.96           & 47.8                                    & 97.81                                     & 23.6                          \\
+            quarternary       & 99.01           & 69.6                                    & 97.95                                     & 34.2                          \\
+            quinary           & 99.02           & 91.1                                    & 98.01                                     & 44.5                          \\
             \bottomrule
         \end{tabular*}
         \begin{tablenotes}
@@ -215,7 +215,7 @@
 
     Although dictionary-based morphological analysis offers significant advances, its optimal paths occasionally diverge from the correct solutions that humans understand.
     This divergence underscores the need for a model that reevaluates these primary results and reorients them to achieve higher accuracy.
-    This method, called "re-ranking," involves generating multiple analyses of an input and then reordering them based on a new set of criteria or models, thereby improving the overall quality of the results.
+    This method, called re-ranking, involves generating multiple analyses of an input and then reordering them based on a new set of criteria or models, thereby improving the overall quality of the results.
 
     \subsection{Secondary Path Generation}\label{subsec4.2}
 
@@ -224,7 +224,8 @@
     In this study, a novel approach is introduced to generate secondary paths, as shown in (3) of Figure~\ref{fig:lattice}, by selecting the second-best node rather than each best node constituting the path from the best-path result.
     Some of these secondary paths provided alternatives that reconciled incorrect with correct answers.
     Similarly, paths modified by favoring the third-best node were called tertiary paths, and this naming convention was continued for subsequent paths.
-    In our preliminary test, the secondary paths, including the optimal and suboptimal paths, were shown to cover the majority of the correct morphological analyses as measured through human evaluations. (Refer to Table~\ref{tab:maximum-performance}).
+    In our preliminary test, the secondary paths, including the optimal and suboptimal paths, were shown to cover the majority of the correct morphological analyses as measured through human evaluations.
+    (Refer to Table~\ref{tab:maximum-performance}).
 
     \subsection{BERT-based Re-ranking}\label{subsec4.3}
 
@@ -258,10 +259,10 @@
 
     \subsection{Setup and Data}\label{subsec5.1}
 
-    For our experiments, we used the Sejong corpus (versions used in ~\cite{NaSH2014, NaSH2015, NaSH2018, SongHJ2019, SongHJ2020}), UCorpus\cite{UCorpusHG}, and Everyone Corpus\cite{EveryoneCorpus}.
+    For our experiments, we used the Sejong corpus (versions used in ~\cite{NaSH2014, NaSH2015, NaSH2018, SongHJ2019, SongHJ2020}), UCorpus\cite{UCorpusHG}, and Everyone's Corpus\cite{EveryoneCorpus}.
     For comparison with previous studies, the Sejong corpus was trained using a single model without separation.
-    The UCorpus and Everyone Corpus provided a separate spoken corpus with drama scripts and broadcast dialogues, while UCorpus separated documents that were considered to be close to spoken language and further organized them into a semi-spoken corpus.
-    Because UCorpus and Everyone Corpus have synergistic effects when trained concurrently, we trained the models separately for written and spoken language rather than separating them by source.
+    The UCorpus and Everyone's Corpus provided a separate spoken corpus with drama scripts and broadcast dialogues, while UCorpus separated documents that were considered to be close to spoken language and further organized them into a semi-spoken corpus.
+    Because UCorpus and Everyone's Corpus have synergistic effects when trained concurrently, we trained the models separately for written and spoken language rather than separating them by source.
     The statistics of the full data for the three types of models are presented in Table~\ref{tab:data-statistics}.
     Because of the large volume of UCorpus, we randomly selected some of them to train the actual model.
 
@@ -271,18 +272,18 @@
         \caption{Performance comparison between morphological analysis systems without re-ranking}\label{tab:performance-without-reranking}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}c|cccccc@{\extracolsep\fill}}
             \toprule
-            \multirow{2}{*}{System} & \multicolumn{2}{c}{Sejong} & \multicolumn{2}{c}{UCorpus (written)} & \multicolumn{2}{c}{Everyone Corpus (written)} \\
+            \multirow{2}{*}{System}                & \multicolumn{2}{c}{Sejong}                                & \multicolumn{2}{c}{UCorpus (written)}                     & \multicolumn{2}{c}{Everyone's Corpus (written)}           \\
             \cmidrule{2-3} \cmidrule{4-5} \cmidrule{6-7}
-            & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
+            ~                                      & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
             \midrule
             \hspace{2mm}MeCab-ko                   & 89.17                      & 93.06                        & 87.88                      & 92.32                        & 87.77                      & 92.05                        \\
             \hspace{2mm}Syllable-based (written)   & 91.95                      & 95.16                        & \textbf{96.84}             & \textbf{97.97}               & \textbf{98.00}             & \textbf{98.82}               \\
             \hspace{2mm}Dictionary-based (written) & 90.99                      & 94.58                        & 96.33                      & 97.74                        & 96.85                      & 98.14                        \\
             \hspace{2mm}Dictionary-based (Sejong)  & \textbf{95.23}             & \textbf{97.08}               & 90.18                      & 94.19                        & 91.30                      & 94.79                        \\
             \toprule
-            \multirow{2}{*}{System} & \multicolumn{2}{c}{UCorpus (semi-spoken)} & \multicolumn{2}{c}{UCorpus (spoken)} & \multicolumn{2}{c}{Everyone Corpus (spoken)} \\
+            \multirow{2}{*}{System}                & \multicolumn{2}{c}{UCorpus (semi-spoken)}                 & \multicolumn{2}{c}{UCorpus (spoken)}                      & \multicolumn{2}{c}{Everyone's Corpus (spoken)}            \\
             \cmidrule{2-3} \cmidrule{4-5} \cmidrule{6-7}
-            & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
+            ~                                      & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
             \midrule
             \hspace{2mm}MeCab-ko                   & 86.85                      & 91.38                        & 81.75                      & 87.90                        & 85.28                      & 89.52                        \\
             \hspace{2mm}Syllable-based (spoken)    & \textbf{96.56}             & \textbf{97.65}               & \textbf{94.89}             & \textbf{96.76}               & \textbf{95.14}             & \textbf{96.82}               \\
@@ -320,9 +321,9 @@
         \caption{Performance comparison between morphological analysis systems with Two-stage re-ranking}\label{tab:performance-with-reranking}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}c|cccccc@{\extracolsep\fill}}
             \toprule
-            \multirow{2}{*}{System} & \multicolumn{2}{c}{Sejong} & \multicolumn{2}{c}{UC+EC (written)} & \multicolumn{2}{c}{UC+EC (spoken)} \\
+            \multirow{2}{*}{System}                       & \multicolumn{2}{c}{Sejong}                                & \multicolumn{2}{c}{UC+EC (written)}                       & \multicolumn{2}{c}{UC+EC (spoken)}                        \\
             \cmidrule{2-3} \cmidrule{4-5} \cmidrule{6-7}
-            & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
+            ~                                             & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
             \midrule
             \hspace{2mm}MeCab-ko                          & 89.17                      & 93.06                        & 87.83                      & 92.19                        & 84.62                      & 89.60                        \\
             \hspace{2mm}Syllable-based                    & 91.95                      & 95.16                        & 97.42                      & 98.39                        & 95.53                      & \textbf{97.08}               \\
@@ -347,7 +348,7 @@
     As shown in Figure~\ref{fig:ranking}, for these three types of pre-trained language models, we first performed training with a re-ranking model using only the morphological analysis results and then performed training with a second re-ranking model using the top five morphological analysis results from the first re-ranking results along with the input sentences for other types of pre-trained language models.
     Preliminary tests indicate that using the same type of model or input results in a nearly identical retrained model, with no further improvement in performance.
 
-    The sentences used for training the re-ranking model were selected from those used for training the dictionary-based morphological analysis model: 190,000 sentences from the Sejong corpus, 240,000 sentences from the written language of the combined UCorpus and Everyone corpus, and 360,000 sentences from the spoken language of the combined UCorpus and Everyone corpus.
+    The sentences used for training the re-ranking model were selected from those used for training the dictionary-based morphological analysis model: 190,000 sentences from the Sejong corpus, 240,000 sentences from the written language of the combined UCorpus and Everyone's corpus, and 360,000 sentences from the spoken language of the combined UCorpus and Everyone's corpus.
     For a large number of sentences, we adopted a floating-point 16-bit technique while using four GPUs for distributed training and significantly reduced the time required for training.
     In addition, the minibatch size was 120 with a maximum sequence length of 384 because the first re-ranking uses only the morphological analysis results as input.
     The minibatch size was 40 with a maximum sequence length of 512 because the original input sentences were given as input along with the first morphological analysis results.
@@ -361,7 +362,7 @@
         \caption{Comparison of performance differences with previous studies}\label{tab:differences-with-previous-studies}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}ccc|cc@{\extracolsep\fill}}
             \toprule
-            \multirow{2}{*}{Authors} & \multirow{2}{*}{Model} & \multirow{2}{*}{Data (train, test)} & \multicolumn{2}{c}{Performance} \\
+            \multirow{2}{*}{Authors}              & \multirow{2}{*}{Model}                     & \multirow{2}{*}{Data (train, test)}         & \multicolumn{2}{c}{Performance}                           \\
             \cmidrule{4-5}
             ~                                     & ~                                          & ~                                           & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
             \midrule
