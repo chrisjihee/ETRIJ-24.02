@@ -1,4 +1,5 @@
 \documentclass[AMS,STIX2COL]{WileyNJD-v2}
+\usepackage{makecell}
 
 \articletype{Article Type}
 \received{26 April 2016}
@@ -42,29 +43,27 @@
     \footnotetext{\textbf{Abbreviations:} ANA, anti-nuclear antibodies; APC, antigen-presenting cells; IRF, interferon regulatory factor}
 
 
-    \begin{center}
-        \begin{table*}[t]
-            \caption{Maximum performance of alternative paths as correct answers}\label{tab:maximum-performance}
-            \centering
-            \begin{tabular*}{500pt}{@{\extracolsep\fill}cccD{.}{.}{3}c@{\extracolsep\fill}}
-                \toprule
-                & \multicolumn{2}{@{}c@{}}{\textbf{Written Language Evaluation Set}} & \multicolumn{2}{@{}c@{}}{\textbf{Spoken Language Evaluation Set}} \\\cmidrule{2-3}\cmidrule{4-5}
-                alternative range & eojeol accuracy & average number of alternative & \multicolumn{1}{@{}l@{}}{eojeol accuracy}  & average number of alternative \\
-                \midrule
-                no alternative    & 96.36           & 1.0                           & 92.54                                     & 1.0                           \\
-                secondary         & 98.74           & 25.7                          & 97.27                                     & 12.9                          \\
-                tertiary          & 98.96           & 47.8                          & 97.81                                     & 23.6                          \\
-                quarternary       & 99.01           & 69.6                          & 97.95                                     & 34.2                          \\
-                quinary           & 99.02           & 91.1                          & 98.01                                     & 44.5                          \\
-                \bottomrule
-            \end{tabular*}
-            \begin{tablenotes}
-                \footnotesize
-                \item\hspace{2mm} * Written Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone Corpus (4,800 sentences total)
-                \item\hspace{2mm} * Spoken Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone Corpus (4,800 sentences total)
-            \end{tablenotes}
-        \end{table*}
-    \end{center}
+    \begin{table*}[]
+        \caption{Statistics for the Korean morphological corpus as a whole and for training/test data}\label{tab:data-statistics}
+        \centering
+        \begin{tabular*}{500pt}{@{\extracolsep{\fill}}m{10mm}m{8mm}m{10mm}m{12mm}m{8mm}m{10mm}m{12mm}m{8mm}m{9mm}m{9mm}m{10mm}@{}}
+            \toprule
+            \multirow{2}{*}{Corpus}                       & \multirow{2}{*}{Style} & \multicolumn{3}{c}{Raw Data}                 & \multicolumn{3}{c}{Training Data}            & \multicolumn{3}{c}{Test Data}             \\
+            \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+            ~                                             & ~                      & Sentences & Eojeols    & Morphs\newline/Sent & Sentences & Eojeols    & Morphs\newline/Sent & Sentences & Eojeols & Morphs\newline/Sent \\
+            \midrule
+            Sejong\newline Corpus                         & written                & 854,475   & 10,052,869 & 26.8                & 194,822   & 2,681,582  & 31.0                & 49,922    & 678,578 & 30.6                \\
+            \midrule
+            \multirow{3}{*}{UCorpus}                      & written                & 5,456,101 & 62,462,158 & 25.1                & 4,998,560 & 57,393,332 & 25.4                & 53,003    & 598,413 & 25.0                \\
+            ~                                             & semi-spoken            & 393,770   & 3,401,444  & 18.4                & 334,061   & 2,960,146  & 19.4                & 38,960    & 332,285 & 18.6                \\
+            ~                                             & spoken                 & 627,380   & 2,819,427  & 10.9                & 429,215   & 2,295,940  & 13.0                & 62,399    & 279,545 & 11.1                \\
+            \midrule
+            \multirow{2}{*}{\makecell{Everyone \\Corpus}} & written                & 150,082   & 2,000,213  & 30.4                & 129,352   & 1,713,367  & 30.5                & 14,442    & 191,223 & 30.5                \\
+            ~                                             & spoken                 & 221,371   & 1,006,287  & 8.7                 & 137,869   & 714,021    & 10.5                & 19,789    & 85,316  & 8.6                 \\
+            \bottomrule
+        \end{tabular*}
+
+    \end{table*}
 
 
     \section{Introduction}\label{sec:intro}
@@ -96,6 +95,28 @@
     For example, it may be cost-effective to select one long morpheme than several short morphemes, but this may often lead to an incorrect analysis.
     The main motivation for this study was that the path that minimizes the costs for the nodes and links may not be the optimal path.
 
+    \begin{table*}[t]
+        \caption{Maximum performance of alternative paths as correct answers}\label{tab:maximum-performance}
+        \centering
+        \begin{tabular*}{500pt}{@{\extracolsep\fill}cccD{.}{.}{3}c@{\extracolsep\fill}}
+            \toprule
+            & \multicolumn{2}{@{}c@{}}{\textbf{Written Language Evaluation Set}} & \multicolumn{2}{@{}c@{}}{\textbf{Spoken Language Evaluation Set}} \\\cmidrule{2-3}\cmidrule{4-5}
+            alternative range & eojeol accuracy & average number of alternative & \multicolumn{1}{@{}l@{}}{eojeol accuracy}  & average number of alternative \\
+            \midrule
+            no alternative    & 96.36           & 1.0                           & 92.54                                     & 1.0                           \\
+            secondary         & 98.74           & 25.7                          & 97.27                                     & 12.9                          \\
+            tertiary          & 98.96           & 47.8                          & 97.81                                     & 23.6                          \\
+            quarternary       & 99.01           & 69.6                          & 97.95                                     & 34.2                          \\
+            quinary           & 99.02           & 91.1                          & 98.01                                     & 44.5                          \\
+            \bottomrule
+        \end{tabular*}
+        \begin{tablenotes}
+            \footnotesize
+            \item\hspace{2mm} * Written Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone Corpus (4,800 sentences total)
+            \item\hspace{2mm} * Spoken Language Evaluation Set: 2,400 sentences each randomized from UCorpus and Everyone Corpus (4,800 sentences total)
+        \end{tablenotes}
+    \end{table*}
+
     To identify cases in which a suboptimal solution is actually the best solution according to the best path calculation, we modified the best path calculation method to generate suboptimal analysis results and verified the extent to which they are correct.
     Although there are numerous different approaches to select the next-best path, we used the method of replacing a morpheme node on the optimal path with a lower-ranked node.
     As shown in Table~\ref{tab:maximum-performance}, we confirm the extent to which the analysis performance can be improved by replacing the optimal path with a lower-ranked node.
@@ -118,10 +139,10 @@
     These contributions provide important insights into the performance improvement of Korean morphological analysis and the direction of future research, and will serve as a useful reference for future researchers.
 
     The remainder of this paper is organized as follows.
-    In Section ~\ref{sec:related-work}, we introduce previous research cases related to this study.
     In Section ~\ref{sec:morphological-analysis-model}, we discuss configuring and training a dictionary-based morphological analysis system.
     In Section ~\ref{sec:re-ranking-model}, we discuss the generation of secondary results of morphological analysis, produce re-ranking data, and propose a method for training a two-stage re-ranking model.
     In Section ~\ref{sec:results}, we discuss the results of the performance improvement using the morphological analysis and re-ranking models.
+    In Section ~\ref{sec:related-work}, we introduce previous research cases related to this study.
     Finally, in Section ~\ref{sec:conclusion}, we conclude the study and discuss its limitations and directions for future research.
 
 
@@ -129,37 +150,6 @@
         \centerline{\includegraphics[width=0.75\textwidth]{fig1.1}}
         \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}\label{fig:sample}
     \end{figure*}
-
-
-    \section{Related Work}\label{sec:related-work}
-
-    Korean morphological analyses have seen an influx of various methodologies in recent years~\cite{KwonHC1991, LeeDG2009, ShimKS2011, LeeJS2011, ShinJC2012, LeeCK2013, NaSH2014, NaSH2015, HwangHS2016, KimHM2016, ChungES2016, LeeCH2016, Li2017, NaSH2018, KimSW2018, ChoiYS2018, MinJW2018, MinJW2019, KimHM2019, SongHJ2019, MinJW2020, SongHJ2020, ChoiYS2020, HwangHS2020, KimHJ2021, YounJY2021, MinJW2022, KimJM2022, ShinHJ2023}.
-    The nature of the Korean language, being agglutinative, introduces challenges that have propelled researchers to develop inventive solutions, many of which have laid the groundwork for future research.
-
-    \subsection{Traditional Dictionary-based Approaches}\label{subsec2.1}
-    The earliest attempts at Korean morphological analysis relied heavily on rule- and dictionary-based methods~\cite{KwonHC1991}.
-    These methodologies employ predefined sets of linguistic rules or large dictionaries to detect morphemes and determine parts of speech.
-    One of the most significant advantages of this approach is its deterministic nature, which can lead to high accuracy when the input text closely adheres to the rules or dictionaries used.
-    However, it is challenging to scale and update them, particularly with the constant evolution of language and the emergence of new words.
-    The dynamic nature of language, particularly in the Internet age, has made the maintenance of comprehensive dictionaries labor-intensive.
-
-    \subsection{Syllable-unit Morphological Analysis}\label{subsec2.2}
-    To overcome the limitations of dictionary dependence, syllable-by-syllable morphological analysis has emerged as an alternative~\cite{ShimKS2011, LeeCK2013, LeeCH2016, KimHM2016, KimSW2018, ChoiYS2018, KimHM2019, MinJW2019, SongHJ2019, SongHJ2020, YounJY2021, ShinHJ2023}.
-    This method either tags each syllable and then applies a base-form restoration dictionary~\cite{ShimKS2011, LeeCH2016} or tags the syllable with the base form already restored~\cite{YounJY2021}.
-    One notable drawback is the challenge of accurately pinpointing morpheme boundaries.
-    Furthermore, as the sequences increase in length, the system finds it increasingly challenging to understand long-term contextual data.
-
-    \subsection{Deep Learning and Tokenization}\label{subsec2.3}
-    The advent of deep learning has reshaped the Korean morphological analysis landscape.
-    High-performance deep learning models in NLP employ tokenization, dividing the text into smaller units and then converting these tokens into vectors as an input to the computational model~\cite{Mikolov2013}.
-    The attempt to conduct subword tokenization, incorporating separate morphemes to cater to Korean linguistic characteristics is particularly significant.
-    Incorporating accurate morpheme analysis results into tokenization can improve overall analysis performance.
-
-    With advancements in technology and access to large datasets, the potential to integrate dictionary-based methods with deep learning techniques has emerged.
-    As motivated in our study, MeCab~\cite{MeCab}, an open software for Korean and Japanese morphological analysis, utilized dictionary-based morphological analysis trained by the CRF method~\cite{Lafferty2001}.
-    This method attempts to find the optimal morphological analysis path by forming a lattice structure as in ~\cite{Kudo2004, NaSH2014, NaSH2015, NaSH2018}.
-    The amalgamation of dictionary-based methods with deep learning, as explored in our research, signifies the latest strides in this journey aimed at harnessing the strengths of both approaches.
-    Future research avenues include refining these hybrid methods and exploring the capabilities of end-to-end models.
 
 
     \begin{figure*}[t]
@@ -242,27 +232,6 @@
     Once the BERT model is fine-tuned and trained for the re-ranking task, it can predict a re-ranking score for each path in the secondary path list.
     This implies that considering the context, morphological organization, and other essential linguistic features of the path, the model assigns a score to each path.
     The paths were then re-ranked according to this score, and the path with the highest score was selected for the best morphological analysis.
-
-    \begin{table*}[]
-        \caption{Statistics on full data for training and evaluating three morphological analysis models}\label{tab:data-statistics}
-        \centering
-        \begin{tabular*}{500pt}{@{\extracolsep\fill}|c|c|rrr|rrr|@{\extracolsep\fill}}
-            \toprule
-            \multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{3}{c|}{\textbf{Training Set}} & \multicolumn{3}{c|}{\textbf{Test Set}} \\
-            \cmidrule{3-5} \cmidrule{6-8}
-            \multicolumn{2}{|c|}{~} & sentences & eojeols & morphemes & sentences & eojeols & morphemes \\
-            \midrule
-            \multicolumn{2}{|c|}{Sejong Corpus} & 194,822 & 2,681,582 & 6,033,785 & 49,922 & 678,578 & 1,527,803 \\
-            \midrule
-            \multirow{3}{*}{UCorpus}         & written     & 4,998,560 & 57,393,332 & 127,171,473 & 53,003 & 598,413 & 1,325,419 \\
-            ~                                & semi-spoken & 334,061   & 2,960,146  & 6,468,494   & 38,960 & 332,285 & 726,398   \\
-            ~                                & spoken      & 429,215   & 2,295,940  & 5,584,494   & 62,399 & 279,545 & 691,542   \\
-            \midrule
-            \multirow{2}{*}{Everyone Corpus} & written     & 129,352   & 1,713,367  & 3,944,118   & 14,442 & 191,223 & 440,052   \\
-            ~                                & spoken      & 137,869   & 714,021    & 1,440,746   & 19,789 & 85,316  & 170,523   \\
-            \bottomrule
-        \end{tabular*}
-    \end{table*}
 
     \subsection{Two-stage Re-ranking}\label{subsec4.4}
 
@@ -419,6 +388,37 @@
     The entire morphological analysis model, including the re-ranking model, is not suitable for real-time processing.
     However, it is expected that by reflecting the cases whose ranks are changed through the re-ranking model as feedback to the dictionary-based morphological analysis model, it will be feasible to obtain near-improved morphological analysis performance.
     The improved dictionary-based morphological analysis model can then be used as input to the re-ranking model; therefore, it is expected that a gradually improvement in morphological analysis model can be obtained through this iterative feedback loop.
+
+
+    \section{Related Work}\label{sec:related-work}
+
+    Korean morphological analyses have seen an influx of various methodologies in recent years~\cite{KwonHC1991, LeeDG2009, ShimKS2011, LeeJS2011, ShinJC2012, LeeCK2013, NaSH2014, NaSH2015, HwangHS2016, KimHM2016, ChungES2016, LeeCH2016, Li2017, NaSH2018, KimSW2018, ChoiYS2018, MinJW2018, MinJW2019, KimHM2019, SongHJ2019, MinJW2020, SongHJ2020, ChoiYS2020, HwangHS2020, KimHJ2021, YounJY2021, MinJW2022, KimJM2022, ShinHJ2023}.
+    The nature of the Korean language, being agglutinative, introduces challenges that have propelled researchers to develop inventive solutions, many of which have laid the groundwork for future research.
+
+    \subsection{Traditional Dictionary-based Approaches}\label{subsec2.1}
+    The earliest attempts at Korean morphological analysis relied heavily on rule- and dictionary-based methods~\cite{KwonHC1991}.
+    These methodologies employ predefined sets of linguistic rules or large dictionaries to detect morphemes and determine parts of speech.
+    One of the most significant advantages of this approach is its deterministic nature, which can lead to high accuracy when the input text closely adheres to the rules or dictionaries used.
+    However, it is challenging to scale and update them, particularly with the constant evolution of language and the emergence of new words.
+    The dynamic nature of language, particularly in the Internet age, has made the maintenance of comprehensive dictionaries labor-intensive.
+
+    \subsection{Syllable-unit Morphological Analysis}\label{subsec2.2}
+    To overcome the limitations of dictionary dependence, syllable-by-syllable morphological analysis has emerged as an alternative~\cite{ShimKS2011, LeeCK2013, LeeCH2016, KimHM2016, KimSW2018, ChoiYS2018, KimHM2019, MinJW2019, SongHJ2019, SongHJ2020, YounJY2021, ShinHJ2023}.
+    This method either tags each syllable and then applies a base-form restoration dictionary~\cite{ShimKS2011, LeeCH2016} or tags the syllable with the base form already restored~\cite{YounJY2021}.
+    One notable drawback is the challenge of accurately pinpointing morpheme boundaries.
+    Furthermore, as the sequences increase in length, the system finds it increasingly challenging to understand long-term contextual data.
+
+    \subsection{Deep Learning and Tokenization}\label{subsec2.3}
+    The advent of deep learning has reshaped the Korean morphological analysis landscape.
+    High-performance deep learning models in NLP employ tokenization, dividing the text into smaller units and then converting these tokens into vectors as an input to the computational model~\cite{Mikolov2013}.
+    The attempt to conduct subword tokenization, incorporating separate morphemes to cater to Korean linguistic characteristics is particularly significant.
+    Incorporating accurate morpheme analysis results into tokenization can improve overall analysis performance.
+
+    With advancements in technology and access to large datasets, the potential to integrate dictionary-based methods with deep learning techniques has emerged.
+    As motivated in our study, MeCab~\cite{MeCab}, an open software for Korean and Japanese morphological analysis, utilized dictionary-based morphological analysis trained by the CRF method~\cite{Lafferty2001}.
+    This method attempts to find the optimal morphological analysis path by forming a lattice structure as in ~\cite{Kudo2004, NaSH2014, NaSH2015, NaSH2018}.
+    The amalgamation of dictionary-based methods with deep learning, as explored in our research, signifies the latest strides in this journey aimed at harnessing the strengths of both approaches.
+    Future research avenues include refining these hybrid methods and exploring the capabilities of end-to-end models.
 
 
     \section{Conclusion}\label{sec:conclusion}
