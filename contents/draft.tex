@@ -353,22 +353,22 @@
         \caption{Comparison of performance differences with previous studies}\label{tab:differences-with-previous-studies}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}ccc|cc@{\extracolsep\fill}}
             \toprule
-            \multirow{2}{*}{Authors}              & \multirow{2}{*}{Model}                     & \multirow{2}{*}{Data (train, test)}         & \multicolumn{2}{c}{Performance}                           \\
+            \multirow{2}{*}{Authors}              & \multirow{2}{*}{Model}                          & \multirow{2}{*}{Data (train, test)}         & \multicolumn{2}{c}{Performance}                           \\
             \cmidrule{4-5}
-            ~                                     & ~                                          & ~                                           & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
+            ~                                     & ~                                               & ~                                           & \multicolumn{1}{c}{eojeol} & \multicolumn{1}{c}{morpheme} \\
             \midrule
-            Na, 2015~\cite{NaSH2015}              & CRF++, HMM                                 & Sejong 200k, 50k sentences                  & 95.22                      & 97.21                        \\
-            Lee et al., 2016~\cite{LeeCH2016}     & Structural SVM                             & Sejong 666k, 74k eojeols                    & 96.41                      & -                            \\
-            Li et al., 2017~\cite{Li2017}         & Seq2seq (GRU-based)                        & Sejong 90k, 10k sentences                   & 95.33                      & 97.15                        \\
-            Na and Kim, 2018~\cite{NaSH2018}      & Lattice + HMM                              & Sejong 200k, 50k sentences                  & 96.35                      & 97.74                        \\
-            Min et al., 2019~\cite{MinJW2019}     & Seq2seq (Transition-based)                 & Sejong 200k, 50k sentences                  & 96.34                      & 97.68                        \\
-            Song and Park, 2019~\cite{SongHJ2019} & Seq2seq (BiLSTM-based)                     & Sejong 200k, 50k sentences                  & 95.68                      & 97.43                        \\
-            Youn et al, 2021~\cite{YounJY2021}    & Seq2seq (BERT-based)                       & Sejong 675k, 75k sentences                  & 95.99                      & 97.94                        \\
-            Shin et al, 2023~\cite{ShinHJ2023}    & Transformer(En) + BiLSTM                   & Sejong 769k, 87k sentences                  & 96.12                      & 97.74                        \\
+            Na, 2015~\cite{NaSH2015}              & CRF++, HMM                                      & Sejong 200k, 50k sentences                  & 95.22                      & 97.21                        \\
+            Lee et al., 2016~\cite{LeeCH2016}     & Structural SVM                                  & Sejong 666k, 74k eojeols                    & 96.41                      & -                            \\
+            Li et al., 2017~\cite{Li2017}         & Seq2seq (GRU-based)                             & Sejong 90k, 10k sentences                   & 95.33                      & 97.15                        \\
+            Na and Kim, 2018~\cite{NaSH2018}      & Lattice + HMM                                   & Sejong 200k, 50k sentences                  & 96.35                      & 97.74                        \\
+            Min et al., 2019~\cite{MinJW2019}     & Seq2seq (Transition-based)                      & Sejong 200k, 50k sentences                  & 96.34                      & 97.68                        \\
+            Song and Park, 2019~\cite{SongHJ2019} & Seq2seq (BiLSTM-based)                          & Sejong 200k, 50k sentences                  & 95.68                      & 97.43                        \\
+            Youn et al, 2021~\cite{YounJY2021}    & Seq2seq (BERT-based)                            & Sejong 675k, 75k sentences                  & 95.99                      & 97.94                        \\
+            Shin et al, 2023~\cite{ShinHJ2023}    & Transformer(Encoder) + BiLSTM                   & Sejong 769k, 87k sentences                  & 96.12                      & 97.74                        \\
             \midrule
-            Proposed (without rerank)             & \multirow{3}{*}{Lattice + Transformer(En)} & \multirow{3}{*}{Sejong 194k, 10k sentences} & 95.23                      & 97.08                        \\
-            Proposed (1-stage rerank)             & ~                                          & ~                                           & 96.63                      & 97.84                        \\
-            Proposed (2-stage rerank)             & ~                                          & ~                                           & \textbf{96.87}             & \textbf{98.01}               \\
+            Proposed (without rerank)             & \multirow{3}{*}{Lattice + Transformer(Encoder)} & \multirow{3}{*}{Sejong 194k, 10k sentences} & 95.23                      & 97.08                        \\
+            Proposed (1-stage rerank)             & ~                                               & ~                                           & 96.63                      & 97.84                        \\
+            Proposed (2-stage rerank)             & ~                                               & ~                                           & \textbf{96.87}             & \textbf{98.01}               \\
             \bottomrule
         \end{tabular*}
     \end{table*}
@@ -400,6 +400,82 @@
 
     Korean morphological analyses have seen an influx of various methodologies in recent years~\cite{KwonHC1991, LeeDG2009, ShimKS2011, LeeJS2011, ShinJC2012, LeeCK2013, NaSH2014, NaSH2015, HwangHS2016, KimHM2016, ChungES2016, LeeCH2016, Li2017, NaSH2018, KimSW2018, ChoiYS2018, MinJW2018, MinJW2019, KimHM2019, SongHJ2019, MinJW2020, SongHJ2020, ChoiYS2020, HwangHS2020, KimHJ2021, YounJY2021, MinJW2022, KimJM2022, ShinHJ2023}.
     The nature of the Korean language, being agglutinative, introduces challenges that have propelled researchers to develop inventive solutions, many of which have laid the groundwork for future research.
+    Table~\ref{tab:overview-of-recent-korean-morphological-analysis-methods} provides a concise comparison of the methodologies and key concepts of key studies that are directly or indirectly related to this research, giving a brief overview of the different methods of morphological analysis.
+
+    \begin{table}[h!]
+        \centering
+        % LaTeX에서 표 안의 글자 크기를 조절하려면, 해당 표의 내용을 글자 크기를 변경하는 명령어로 감싸면 됩니다.
+        % 예를 들어, \tiny, \small, \footnotesize, \scriptsize 등의 명령어를 사용할 수 있습니다.
+        % 이 명령어들은 각각 다른 크기의 글자를 생성합니다.
+        \footnotesize
+        \caption{Overview of Recent Korean Morphological Analysis Methods}
+        \label{tab:overview-of-recent-korean-morphological-analysis-methods}
+        \begin{tabular}{|p{10mm}|p{32mm}|p{32mm}|}
+            \hline
+            \textbf{Authors} & \textbf{Methodology} & \textbf{Key Concepts} \\
+            \hline
+            Na et al., 2014~\cite{NaSH2014}
+            & Lattice-based discriminative approach creating a morpheme lattice for POS tagging and morphological analysis
+            & Lattice-based analysis, morpheme segmentation, structured classification \\
+            \hline
+            Na and Kim, 2018~\cite{NaSH2018}
+            & Phrase-based model for morphological analysis integrating phrases with CRFs
+            & Phrase-based modeling, CRFs, discriminative modeling \\
+            \hline
+            Shim, 2011~\cite{ShimKS2011}
+            & Syllable-based POS tagging method avoiding morphological analysis by employing CRF models
+            & Syllable-based POS tagging, CRF models, lexical and contextual probabilities \\
+            \hline
+            Lee, 2013~\cite{LeeCK2013}
+            & Joint model using structural SVM for concurrent word spacing and POS tagging
+            & Joint modeling, word spacing, POS tagging, structural SVM, error propagation \\
+            \hline
+            Lee et al., 2016~\cite{LeeCH2016}
+            & Hybrid algorithm combining machine learning with a pre-analyzed dictionary for syllable-based POS tagging
+            & Hybrid algorithm, syllable-based POS tagging, machine learning, CRF \\
+            \hline
+            Kim et al., 2016~\cite{KimHM2016}
+            & Method utilizing Bi-LSTM-CRF for POS tagging with input based on syllable distribution patterns
+            & Syllable-based POS tagging, bi-directional LSTM, CRFs, POS distribution vectors \\
+            \hline
+            Li et al., 2017~\cite{Li2017}
+            & End-to-end sequence-to-sequence model with convolutional features for morphological analysis and POS tagging
+            & Sequence-to-sequence model, convolutional features, morphological analysis, POS tagging \\
+            \hline
+            Kim and Choi, 2018~\cite{KimSW2018}
+            & Integrated model using Bi-LSTM-CRF for simultaneous word spacing and POS tagging
+            & Bidirectional LSTM, CRF, word spacing, POS tagging, syllable-based analysis \\
+            \hline
+            Choi and Lee, 2018~\cite{ChoiYS2018}
+            & Reranking model post-processing seq2seq outputs with morpheme-unit embedding and n-grams to reorder results
+            & Seq2seq model, reranking, morpheme-unit embedding, beam search, n-grams \\
+            \hline
+            Min et al., 2019~\cite{MinJW2019}
+            & Neural transition-based model for end-to-end morpheme segmentation and POS tagging
+            & Neural transition-based learning, end-to-end model, morpheme segmentation, POS tagging \\
+            \hline
+            Kim et al., 2019~\cite{KimHM2019}
+            & Syllable distribution pattern utilization with Bi-LSTM-CRF for morphological analysis and POS tagging
+            & Syllable distribution patterns, Bi-LSTM-CRF, morphological analysis, POS tagging \\
+            \hline
+            Song and Park, 2019~\cite{SongHJ2019}
+            & Tied sequence-to-sequence multi-task model for morpheme processing and POS tagging
+            & Multi-task learning, POS tagging, Morpheme generation, Sequence-to-sequence model \\
+            \hline
+            Song and Park, 2020~\cite{SongHJ2020}
+            & Two-step POS tagging using an encoder-decoder architecture for morpheme generation followed by sequence labeling
+            & POS Tagging, Morpheme Generation, Encoder-Decoder Architecture, Sequence Labeling \\
+            \hline
+            Youn and Lee, 2021~\cite{YounJY2021}
+            & Two-step deep learning-based pipeline model for morpheme restoration and POS tagging with BERT
+            & Deep Learning, Sequence-to-Sequence, BERT, Morpheme Restoration, POS Tagging \\
+            \hline
+            Shin and Lee, 2023~\cite{ShinHJ2023}
+            & Syllable-Based Multi-POSMORPH Annotation approach
+            & Syllable distribution patterns, Multi-POSMORPH tags, Transformer encoder, BiLSTM \\
+            \hline
+        \end{tabular}
+    \end{table}
 
     \subsection{Traditional Dictionary-based Approaches}\label{subsec:traditional-dictionary-based-approaches}
     The earliest attempts at Korean morphological analysis relied heavily on rule- and dictionary-based methods~\cite{KwonHC1991}.
@@ -409,7 +485,7 @@
     The dynamic nature of language, particularly in the Internet age, has made the maintenance of comprehensive dictionaries labor-intensive.
 
     \subsection{Syllable-unit Morphological Analysis}\label{subsec:syllable-unit-morphological-analysis}
-    To overcome the limitations of dictionary dependence, syllable-by-syllable morphological analysis has emerged as an alternative~\cite{ShimKS2011, LeeCK2013, LeeCH2016, KimHM2016, KimSW2018, ChoiYS2018, KimHM2019, MinJW2019, SongHJ2019, SongHJ2020, YounJY2021, ShinHJ2023}.
+    To overcome the limitations of dictionary dependence, syllable-by-syllable morphological analysis has emerged as an alternative~\cite{ShimKS2011, LeeCK2013, LeeCH2016, KimHM2016, Li2017, KimSW2018, ChoiYS2018, MinJW2019, KimHM2019, SongHJ2019, SongHJ2020, YounJY2021, ShinHJ2023}.
     This method either tags each syllable and then applies a base-form restoration dictionary~\cite{ShimKS2011, LeeCH2016} or tags the syllable with the base form already restored~\cite{YounJY2021}.
     One notable drawback is the challenge of accurately pinpointing morpheme boundaries.
     Furthermore, as the sequences increase in length, the system finds it increasingly challenging to understand long-term contextual data.
