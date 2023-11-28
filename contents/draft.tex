@@ -22,12 +22,13 @@
     \presentaddress{This is sample for present address text this is sample for present address text}
 
     \abstract[Abstract]{
-        Korean morphological analysis is a fundamental step in analyzing the Korean language.
-        Owing to the nature of Korean agglutinative words, building an automatic analysis system is difficult because parts-of-speech tagging independently is insufficient to complete analysis, as in English.
-        In addition, various methods for morphological analysis have been proposed; however, efficient methods, such as BPE (Byte Pair Encoding), are mainly used in applications intended to be used as tokenizers for deep learning.
-        In this study, we propose a method to maximize the performance of an efficient morphological analysis system that can be used for tokenization through multi-stage re-ranking based on deep learning.
-        For cases whose rankings have been changed through re-ranking, it is feasible to improve the performance while maintaining speed by updating the cost matrix of the lattice-based morphological analysis system.
-        Through experiments, we demonstrate that the proposed method effectively improves performance via reducing errors by over 30\% in both spoken and written language models.
+        This study presents a novel approach to Korean morphological analysis by integrating a Transformer-based re-ranking method into a dictionary-based morphological analysis system.
+        A significant advancement in this research is the effective utilization of the BERT model's re-ranking, which has brought innovations in the broader field of natural language processing.
+        This enhancement is achieved through a two-stage re-ranking process: the first stage involves fine-tuning a BERT model using only the results of morphological analysis, and the second stage fine-tunes a different type of BERT model using the re-ranked results along with the original text.
+        This method effectively improves the performance of dictionary-based morphological analysis, which previously lagged behind syllable-based analysis in terms of accuracy.
+        The integration of deep learning with traditional morphological analysis represents a significant advancement in providing more powerful and efficient tools for language processing tasks.
+        According to our results, there is a substantial improvement in eojeol accuracy and morpheme F1 scores compared to previous methods.
+        This study not only sets a new standard in Korean language processing but also paves the way for further advancements in applying deep learning to linguistic analysis.
     }
     \keywords{Korean morphological analysis, natural language understanding, deep learning, pretrained transformer encoder, re-ranking}
 
