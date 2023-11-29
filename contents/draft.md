@@ -1,3 +1,30 @@
+<div class="table*">
+
+<div class="tabular*">
+
+500pt@cccD..3c@   & &  
+alternative range & eojeol accuracy & average number of alternative & &
+average number of alternative  
+no alternative & 96.36 & 1.0 & 92.54 & 1.0  
+secondary & 98.74 & 25.7 & 97.27 & 12.9  
+tertiary & 98.96 & 47.8 & 97.81 & 23.6  
+quarternary & 99.01 & 69.6 & 97.95 & 34.2  
+quinary & 99.02 & 91.1 & 98.01 & 44.5  
+
+</div>
+
+<div class="tablenotes">
+
+\* Written Language Evaluation Set: 2,400 sentences each randomized from
+UCorpus and Everyone’s Corpus (4,800 sentences total)
+
+\* Spoken Language Evaluation Set: 2,400 sentences each randomized from
+UCorpus and Everyone’s Corpus (4,800 sentences total)
+
+</div>
+
+</div>
+
 # Introduction
 
 Korean morphological analysis is the process of determining parts of
@@ -13,26 +40,26 @@ analysis significantly affects the performance of Korean analysis.
 Modern high-performance deep learning methods in natural language
 processing (NLP) use a tokenization process that breaks the text into
 smaller units and converts each token into a vector as an input to the
-computational model. Here, the token unit is mainly a subword unit, and
+computational model . Here, the token unit is mainly a subword unit, and
 to reflect the characteristics of a Korean subword, tokenization with
-separate morphemes is attempted in advance. Using the results of the
+separate morphemes is attempted in advance . Using the results of the
 morphological analysis for this tokenization process improves the
 overall performance of the analysis by reflecting the semantic units of
 Korean. This requires a highly accurate and fast morphological analyzer.
 
 Various approaches have been proposed for morphological analysis, which
-is crucial in Korean language analysis. In general, when people
+is crucial in Korean language analysis . In general, when people
 understand speech or written text, they attempt to make sense of it
 using vocabulary and concepts that they are familiar with. While there
 are approaches to use rules or dictionaries to reflect this
-understanding, it becomes difficult to build and maintain a dictionary
+understanding , it becomes difficult to build and maintain a dictionary
 for the vocabulary that appears in each text. Therefore, methods for
-tagging syllable units without a dictionary have been proposed and
-studies have been conducted to improve them . From a mechanical
+tagging syllable units without a dictionary have been proposed  and
+studies have been conducted to improve them  . From a mechanical
 perspective, syllable-by-syllable morphological analysis can be
 performed either by tagging syllable-by-syllable and then applying a
-base-form restoration dictionary, or by tagging syllable-by-syllable
-with the base form already restored. However, syllable-by-syllable
+base-form restoration dictionary , or by tagging syllable-by-syllable
+with the base form already restored . However, syllable-by-syllable
 morphological analysis has limitations, in that it is difficult to
 accurately identify morpheme boundaries and learn long-term contextual
 information as the length of the sequence increases. In this study, the
@@ -48,15 +75,15 @@ significant opportunity to overcome the limitations of dictionary-based
 methods.
 
 Against this background, this study considers how the dictionary-based
-morphological analysis method used by MeCab, an open software for
+morphological analysis method used by MeCab , an open software for
 Korean and Japanese morphological analysis in tokenizers, which is an
 essential preprocessing tool for deep learning, can be effectively
 improved, and a method is proposed. The dictionary-based morphological
-analysis method trained by the CRF (Conditional Random Fields) method
+analysis method  trained by the CRF (Conditional Random Fields) method 
 lists the candidate morphemes in the dictionary from a given sentence to
 form a lattice structure connected by a directed graph and determines
 the optimal morphological analysis path within it. The process of
-determining the optimal path in the lattice uses the Viterbi algorithm,
+determining the optimal path in the lattice uses the Viterbi algorithm ,
 which determines the path that minimizes the cost of each morpheme node
 and the sum of the neighborhood costs of two consecutive morphemes. The
 main types of errors in these dictionary-based morphological analysis
@@ -68,6 +95,21 @@ to an incorrect analysis. The main motivation for this study was that
 the path that minimizes the costs for the nodes and links may not be the
 optimal path.
 
+<div class="table*">
+
+|                   |             |           |            |             |               |            |             |           |         |             |
+|:------------------|:------------|:----------|:-----------|:------------|:--------------|:-----------|:------------|:----------|:--------|:------------|
+| Corpus            | Style       | Raw Data  |            |             | Training Data |            |             | Test Data |         |             |
+|                   |             | sentences | eojeols    | morphs/sent | sentences     | eojeols    | morphs/sent | sentences | eojeols | morphs/sent |
+| Sejong Corpus     | written     | 854,475   | 10,052,869 | 26.8        | 194,822       | 2,681,582  | 31.0        | 49,922    | 678,578 | 30.6        |
+| UCorpus           | written     | 5,456,101 | 62,462,158 | 25.1        | 4,998,560     | 57,393,332 | 25.4        | 53,003    | 598,413 | 25.0        |
+|                   | semi-spoken | 393,770   | 3,401,444  | 18.4        | 334,061       | 2,960,146  | 19.4        | 38,960    | 332,285 | 18.6        |
+|                   | spoken      | 627,380   | 2,819,427  | 10.9        | 429,215       | 2,295,940  | 13.0        | 62,399    | 279,545 | 11.1        |
+| Everyone’s Corpus | written     | 150,082   | 2,000,213  | 30.4        | 129,352       | 1,713,367  | 30.5        | 14,442    | 191,223 | 30.5        |
+|                   | spoken      | 221,371   | 1,006,287  | 8.7         | 137,869       | 714,021    | 10.5        | 19,789    | 85,316  | 8.6         |
+
+</div>
+
 To identify cases in which a suboptimal solution is actually the best
 solution according to the best path calculation, we modified the best
 path calculation method to generate suboptimal analysis results and
@@ -75,15 +117,16 @@ verified the extent to which they are correct. Although there are
 numerous different approaches to select the next-best path, we used the
 method of replacing a morpheme node on the optimal path with a
 lower-ranked node. As shown in
-Table [tab:maximum-performance],
+Table <a href="#tab:maximum-performance" data-reference-type="ref"
+data-reference="tab:maximum-performance">[tab:maximum-performance]</a>,
 we confirm the extent to which the analysis performance can be improved
 by replacing the optimal path with a lower-ranked node. We can consider
 the problem of finding the correct answer among the generated
 sub-optimals, similar to the problem of re-ranking search results in
-information retrieval. In , the N-best analysis results generated by
+information retrieval . In  , the N-best analysis results generated by
 the seq2seq model were re-ranked based on a convolutional neural network
 to improve the performance. In this study, re-ranking was performed
-using two BERT models of different types and forms, as proposed in .
+using two BERT models of different types and forms, as proposed in  .
 Experimental results show that first-stage re-ranking improves the
 performance by over 20% over existing written and spoken models, and
 second-stage re-ranking with a different type of input and a different
@@ -128,16 +171,37 @@ These contributions provide important insights into the performance
 improvement of Korean morphological analysis and the direction of future
 research, and will serve as a useful reference for future researchers.
 
-The remainder of this paper is organized as follows. In Section 2, we discuss
+The remainder of this paper is organized as follows. In Section
+ <a href="#sec:morphological-analysis-model" data-reference-type="ref"
+data-reference="sec:morphological-analysis-model">2</a>, we discuss
 configuring and training a dictionary-based morphological analysis
-system. In Section 3, we discuss the generation of
+system. In Section
+ <a href="#sec:reranking-model" data-reference-type="ref"
+data-reference="sec:reranking-model">3</a>, we discuss the generation of
 secondary results of morphological analysis, produce re-ranking data,
 and propose a method for training a two-stage re-ranking model. In
-Section  4, we discuss the results of the
+Section  <a href="#sec:results" data-reference-type="ref"
+data-reference="sec:results">4</a>, we discuss the results of the
 performance improvement using the morphological analysis and re-ranking
-models. In Section 5, we introduce previous research
-cases related to this study. Finally, in Section 6, we conclude the study and discuss
+models. In Section
+ <a href="#sec:related-work" data-reference-type="ref"
+data-reference="sec:related-work">5</a>, we introduce previous research
+cases related to this study. Finally, in Section
+ <a href="#sec:conclusion" data-reference-type="ref"
+data-reference="sec:conclusion">6</a>, we conclude the study and discuss
 its limitations and directions for future research.
+
+<div class="figure*">
+
+<img src="fig1.1" style="width:75.0%" alt="image" />
+
+</div>
+
+<div class="figure*">
+
+<img src="fig2.1" style="width:90.0%" alt="image" />
+
+</div>
 
 # Morphological Analysis Model
 
@@ -150,29 +214,30 @@ and serves different research purposes.
 **Sejong Corpus**: Originating from the 21st Century Sejong Project,
 this corpus consists of a total of 15 million eojeols, including the raw
 untagged corpus, and forms the backbone of Korean morphological analysis
-research. It provides a wide variety of linguistic patterns and
+research . It provides a wide variety of linguistic patterns and
 structures that are important for baseline training and validation of
 morphological analysis models, and has been used for performance
 comparisons with other studies. In most of the previous studies, only a
 part of the Sejong corpus was used for experiments, and in this study,
-we used the dataset provided by the researchers in .
+we used the dataset provided by the researchers in  .
 
-**UCorpus (University of Ulsan Corpus)**: This is an extension of the
+**UCorpus (University of Ulsan Corpus)** : This is an extension of the
 Sejong corpus, which is constantly being maintained and added to by the
 University of Ulsan, significantly increasing its volume to 63 million
 eojeols and testing the adaptability and accuracy of the model to a
 wider range of data. The expansion includes corrections to previously
-raised errors  and a number of annotation outputs for new data,
+raised errors   and a number of annotation outputs for new data,
 providing a substantial basis for comprehensive linguistic analysis.
 
-**Everyone’s Corpus**: Launched by the National Institute of the Korean
+**Everyone’s Corpus** : Launched by the National Institute of the Korean
 Language in 2020, the Everybody’s Corpus enriches the data landscape
 with web texts and spoken language materials that reflect contemporary
-language use. This modern corpus reflects the dynamic evolution of the
+language use . This modern corpus reflects the dynamic evolution of the
 Korean language and is playing a pivotal role in improving models for
 capturing the nuances of current Korean usage.
 
-Table [tab:data-statistics] details
+Table <a href="#tab:data-statistics" data-reference-type="ref"
+data-reference="tab:data-statistics">[tab:data-statistics]</a> details
 the specific number of sentences and words in each corpus, and the data
 subsets extracted for model training and evaluation. During the training
 data conversion process, we first removed duplicate sentences and
@@ -191,17 +256,20 @@ surface forms in the Korean morphological analysis corpus.
 In this study, string alignment was performed using the Smith-Waterman
 algorithm, which uses a scoring matrix based on the similarity of the
 grapheme unit of Korean letters for each word pair (as shown in
-Figure [fig:sample]). Each aligned sentence
+Figure <a href="#fig:sample" data-reference-type="ref"
+data-reference="fig:sample">[fig:sample]</a>). Each aligned sentence
 containing a morpheme tag was converted into a training sample tailored
 for dictionary-based morphological analysis.
 
 The resulting table in
-Figure [fig:sample] illustrates this process.
+Figure <a href="#fig:sample" data-reference-type="ref"
+data-reference="fig:sample">[fig:sample]</a> illustrates this process.
 Each row acts as a lexical unit. The first four columns contribute to
 feature generation, whereas the last four columns facilitate
 post-lemmatization. Using the morphological corpus above, a large number
 of training samples can be generated according to the process shown in
-Figure [fig:sample]. With the exception of the
+Figure <a href="#fig:sample" data-reference-type="ref"
+data-reference="fig:sample">[fig:sample]</a>. With the exception of the
 evaluation samples, the remaining sentences were used to train the
 dictionary-based morphological analysis model using the CRF algorithm.
 The output of this training allowed the calculation of the costs
@@ -209,13 +277,21 @@ associated with each morpheme node and the linking of two consecutive
 morphemes. This, in turn, allowed the discovery of an optimal path using
 the Viterbi algorithm.
 
+<div class="figure*">
+
+<img src="fig3.0" style="width:90.0%" alt="image" />
+
+</div>
+
 ## Lattice Construction and Decoding
 
-Figure [fig:lattice] presents a snapshot of
+Figure <a href="#fig:lattice" data-reference-type="ref"
+data-reference="fig:lattice">[fig:lattice]</a> presents a snapshot of
 the lattice structure, which is an integral part of the morphological
 analysis. (1) shows a fragment of the lattice structure formed when the
 example sentence in
-Figure [fig:sample] is entered. (2) shows the
+Figure <a href="#fig:sample" data-reference-type="ref"
+data-reference="fig:sample">[fig:sample]</a> is entered. (2) shows the
 optimal path determined using the Viterbi algorithm.
 
 However, the path inferred by the trained model may differ from the
@@ -227,8 +303,6 @@ To improve analytical performance, mechanisms to correct these
 discrepancies must developed.
 
 # Re-ranking Model
-
-## Motivation and Background
 
 Although dictionary-based morphological analysis offers significant
 advances, its optimal paths occasionally diverge from the correct
@@ -245,7 +319,8 @@ Before reranking begins, multiple analyses, typically referred to as the
 N-best paths, of the input sentence are generated. This involves
 extracting the top N atoms from the lattice structure. In this study, a
 novel approach is introduced to generate secondary paths, as shown in
-(3) of Figure [fig:lattice], by selecting the
+(3) of Figure <a href="#fig:lattice" data-reference-type="ref"
+data-reference="fig:lattice">[fig:lattice]</a>, by selecting the
 second-best node rather than each best node constituting the path from
 the best-path result. Some of these secondary paths provided
 alternatives that reconciled incorrect with correct answers. Similarly,
@@ -254,11 +329,12 @@ paths, and this naming convention was continued for subsequent paths. In
 our preliminary test, the secondary paths, including the optimal and
 suboptimal paths, were shown to cover the majority of the correct
 morphological analyses as measured through human evaluations. (Refer to
-Table [tab:maximum-performance]).
+Table <a href="#tab:maximum-performance" data-reference-type="ref"
+data-reference="tab:maximum-performance">[tab:maximum-performance]</a>).
 
 ## BERT-based Re-ranking
 
-Bidirectional Encoder Representations from Transformers (BERT) models
+Bidirectional Encoder Representations from Transformers (BERT) models 
 have revolutionized many natural language processing tasks by
 understanding the context in which words appear in text. In this study,
 we attempt to leverage the power of BERT to reorder the generated
@@ -282,16 +358,19 @@ selected for the best morphological analysis.
 
 Given the complexity of the Korean language, a single re-ranking step
 does not constantly yield accurate results. Therefore, we propose a
-two-step re-ranking approach as described in .
+two-step re-ranking approach as described in  .
 
 In the first step, we re-rank the secondary paths generated using the
-BERT model, as described in Section 3.3. In the second
+BERT model, as described in Section
+ <a href="#subsec:bert-based-reranking" data-reference-type="ref"
+data-reference="subsec:bert-based-reranking">3.2</a>. In the second
 step, we introduced another BERT variant that was optimized for a
 different set of linguistic features or trained on a different dataset.
 This allowed us to perform a fine-grained re-evaluation, further refine
 the list, and push more contextually accurate paths to the top.
 
-As shown in Figure [fig:ranking], for a two-stage
+As shown in Figure <a href="#fig:ranking" data-reference-type="ref"
+data-reference="fig:ranking">[fig:ranking]</a>, for a two-stage
 reranking model, the first stage performs the first re-ranking, taking
 as input a secondary path in morphologically tagged lemma form. It then
 performs a second re-ranking, again taking as input the path re-ranked
@@ -299,7 +378,22 @@ in stage 1 and the original input sentence. This was conducted to
 improve effectiveness, as it was ineffective given the same type of
 input.
 
+In summary, the re-ranking model represents a significant advancement in
+our approach to Korean morphological analysis. By leveraging BERT-based
+models, we anticipate a marked improvement in accuracy, especially in
+complex linguistic scenarios. The next section will present our
+experimental setup and results, providing crucial empirical evidence for
+the efficacy of the re-ranking model in practical applications.
+
 # Experimental Results
+
+Having developed the re-ranking model as a theoretical framework for
+enhancing Korean morphological analysis, we now turn to empirical
+validation. This section outlines our experimental setup, designed
+meticulously to test the performance of our model. Through these
+experiments, we aim to demonstrate not just the model’s accuracy but
+also its practical applicability in handling the nuances of Korean
+language processing.
 
 We evaluated the performance of the proposed deep learning-integrated
 dictionary-based morphological analysis method. This section presents
@@ -308,7 +402,7 @@ over conventional methods and the effectiveness of our re-ranking model.
 
 ## Setup and Data
 
-For our experiments, we used the Sejong corpus (versions used in ),
+For our experiments, we used the Sejong corpus (versions used in  ),
 UCorpus, and Everyone’s Corpus. For comparison with previous studies,
 the Sejong corpus was trained using a single model without separation.
 The UCorpus and Everyone’s Corpus provided a separate spoken corpus with
@@ -319,12 +413,16 @@ Corpus have synergistic effects when trained concurrently, we trained
 the models separately for written and spoken language rather than
 separating them by source. The statistics of the full data for the three
 types of models are presented in
-Table [tab:data-statistics]. Because
+Table <a href="#tab:data-statistics" data-reference-type="ref"
+data-reference="tab:data-statistics">[tab:data-statistics]</a>. Because
 of the large volume of UCorpus, we randomly selected some of them to
 train the actual model.
 
 We transformed this organized morphological corpus using the
-training-example transformation process described in Section 2.2 to
+training-example transformation process described in Section
+ <a href="#subsec:training-example-transformation"
+data-reference-type="ref"
+data-reference="subsec:training-example-transformation">2.2</a> to
 generate samples for training the dictionary-based morphological
 analysis model.
 
@@ -365,7 +463,7 @@ made:
 -   Root tags (XR) used alone without affixes were replaced with common
     nouns (NNG) because they are mainly used in the Sejong corpus only.
 
--   As mentioned in , connective endings (EC) and sentence-closing
+-   As mentioned in  , connective endings (EC) and sentence-closing
     endings (EF) are not clearly defined in the tagging guidelines, and
     there are cases where they are used interchangeably in the corpus,
     to ensure that we evaluated them without distinguishing them.
@@ -388,9 +486,12 @@ made:
 
 First, we compared the initial results of the dictionary-based
 morphological analysis model trained using the method described in
-Section 2 with those of
+Section
+ <a href="#sec:morphological-analysis-model" data-reference-type="ref"
+data-reference="sec:morphological-analysis-model">2</a> with those of
 MeCab and syllable-based morphological analysis systems (refer to
-Table [tab:performance-without-reranking]).
+Table <a href="#tab:performance-without-reranking" data-reference-type="ref"
+data-reference="tab:performance-without-reranking">[tab:performance-without-reranking]</a>).
 The results show that the dictionary-based method implemented is
 superior to the existing MeCab system, but it differs from human
 evaluations owing to the limitations mentioned above, and it does not
@@ -400,11 +501,66 @@ and other corpora is poor, as the model trained on the Sejong corpus has
 guaranteed performance when evaluated on the Sejong corpus, and some
 performance degradation occurs on other corpora.
 
+<div class="table*">
+
+|                            |                       |           |                   |           |                             |           |
+|:--------------------------:|:---------------------:|:---------:|:-----------------:|:---------:|:---------------------------:|:---------:|
+|           System           |        Sejong         |           | UCorpus (written) |           | Everyone’s Corpus (written) |           |
+|                            |        eojeol         | morpheme  |      eojeol       | morpheme  |           eojeol            | morpheme  |
+|          MeCab-ko          |         89.17         |   93.06   |       87.88       |   92.32   |            87.77            |   92.05   |
+|  Syllable-based (written)  |         91.95         |   95.16   |     **96.84**     | **97.97** |          **98.00**          | **98.82** |
+| Dictionary-based (written) |         90.99         |   94.58   |       96.33       |   97.74   |            96.85            |   98.14   |
+| Dictionary-based (Sejong)  |       **95.23**       | **97.08** |       90.18       |   94.19   |            91.30            |   94.79   |
+|           System           | UCorpus (semi-spoken) |           | UCorpus (spoken)  |           | Everyone’s Corpus (spoken)  |           |
+|                            |        eojeol         | morpheme  |      eojeol       | morpheme  |           eojeol            | morpheme  |
+|          MeCab-ko          |         86.85         |   91.38   |       81.75       |   87.90   |            85.28            |   89.52   |
+|  Syllable-based (spoken)   |       **96.56**       | **97.65** |     **94.89**     | **96.76** |          **95.14**          | **96.82** |
+| Dictionary-based (spoken)  |         94.98         |   96.65   |       93.02       |   95.71   |            92.47            |   94.83   |
+
+</div>
+
+<div class="table*">
+
+|                                   |           |           |                 |           |                |           |
+|:---------------------------------:|:---------:|:---------:|:---------------:|:---------:|:--------------:|:---------:|
+|              System               |  Sejong   |           | UC+EC (written) |           | UC+EC (spoken) |           |
+|                                   |  eojeol   | morpheme  |     eojeol      | morpheme  |     eojeol     | morpheme  |
+|             MeCab-ko              |   89.17   |   93.06   |      87.83      |   92.19   |     84.62      |   89.60   |
+|          Syllable-based           |   91.95   |   95.16   |      97.42      |   98.39   |     95.53      | **97.08** |
+| Dictionary-based (without rerank) |   95.23   |   97.08   |      96.59      |   97.94   |     93.49      |   95.73   |
+| Dictionary-based (1-stage rerank) |   96.63   |   97.84   |      97.50      |   98.44   |     94.77      |   96.62   |
+| Dictionary-based (2-stage rerank) | **96.87** | **98.01** |    **97.75**    | **98.60** |   **95.56**    | **97.08** |
+
+</div>
+
+<div id="tab:training-options">
+
+|                       | **First-Stage**                     | **Second-Stage**                                                  |
+|:----------------------|:------------------------------------|:------------------------------------------------------------------|
+| Input Type            | Only Morphological Analysis Results | First Morphological Analysis Results and Original Input Sentences |
+| Max Sequence Length   | 384                                 | 512                                                               |
+| Minibatch Size        | 120                                 | 40                                                                |
+| Training Epochs       | 5                                   | 7                                                                 |
+| Devices Used          | 4 GPUs                              |                                                                   |
+| Distribution Strategy | ddp                                 |                                                                   |
+| FP Precision          | 16-bit                              |                                                                   |
+| Learning Rate         | 2 × 10<sup>−5</sup>                 |                                                                   |
+| LR Scheduler          | ExponentialLR (gamma=0.9)           |                                                                   |
+| Optimizer Type        | AdamW                               |                                                                   |
+| PyTorch               | version 2.0.1                       |                                                                   |
+| PyTorch Lightning     | version 2.0.6                       |                                                                   |
+| Transformers          | version 4.31.0                      |                                                                   |
+
+Training Options and Software Information for Re-ranking Model
+
+</div>
+
 ## Re-ranking Performance
 
 Upon integrating the BERT-based re-ranking model, we observed
 substantial performance enhancement.
-Table [tab:performance-with-reranking]
+Table <a href="#tab:performance-with-reranking" data-reference-type="ref"
+data-reference="tab:performance-with-reranking">[tab:performance-with-reranking]</a>
 shows that the re-ranking model identified a better path in a
 significant proportion of cases. The first-stage re-ranking exhibited a
 performance improvement of over 20% compared with traditional models.
@@ -412,7 +568,29 @@ The subsequent re-ranking, leveraging a distinct type of input and a
 different pre-trained model, further augmented the performance by more
 than 30%.
 
-Next, we performed the BERT-based re-ranking described in Section 3 and compared its
+<div class="table*">
+
+|                           |                                |                            |             |           |
+|:-------------------------:|:------------------------------:|:--------------------------:|:-----------:|:---------:|
+|           Study           |             Model              |     Data (train, test)     | Performance |           |
+|                           |                                |                            |   eojeol    | morpheme  |
+|         Na, 2015          |    CRF++, Lattice-based HMM    | Sejong 200k, 50k sentences |    95.22    |   97.21   |
+|     Lee et al., 2016      |         Structural SVM         |  Sejong 666k, 74k eojeols  |    96.41    |    \-     |
+|     Li et al., 2017       |      Seq2seq (GRU-based)       | Sejong 90k, 10k sentences  |    95.33    |   97.15   |
+|     Na and Kim, 2018      |         Lattice + HMM          | Sejong 200k, 50k sentences |    96.35    |   97.74   |
+|     Min et al., 2019      |   Seq2seq (Transition-based)   | Sejong 200k, 50k sentences |    96.34    |   97.68   |
+|   Song and Park, 2019     |     Seq2seq (BiLSTM-based)     | Sejong 200k, 50k sentences |    95.68    |   97.43   |
+|     Youn et al, 2021      |      Seq2seq (BERT-based)      | Sejong 675k, 75k sentences |    95.99    |   97.94   |
+|     Shin et al, 2023      | Transformer(Encoder) + BiLSTM  | Sejong 769k, 87k sentences |    96.12    |   97.74   |
+| Proposed (without rerank) | Lattice + Transformer(Encoder) | Sejong 194k, 10k sentences |    95.23    |   97.08   |
+| Proposed (1-stage rerank) |                                |                            |    96.63    |   97.84   |
+| Proposed (2-stage rerank) |                                |                            |  **96.87**  | **98.01** |
+
+</div>
+
+Next, we performed the BERT-based re-ranking described in Section
+ <a href="#sec:reranking-model" data-reference-type="ref"
+data-reference="sec:reranking-model">3</a> and compared its
 performances. Three pre-trained language models, KPF-BERT, ETRI-ELECTRA,
 and ETRI-RoBERTa, which are known to perform well in other Korean
 language understanding tasks, were used to fine-tune the re-ranking
@@ -424,7 +602,8 @@ separation of morpheme tags into letter units during the tokenization
 process when the morpheme analysis results were received as input and
 re-ranked, hence, the morpheme tags of the mid-level classification unit
 were added as new tokens, and then training was performed. As shown in
-Figure [fig:ranking], for these three types of
+Figure <a href="#fig:ranking" data-reference-type="ref"
+data-reference="fig:ranking">[fig:ranking]</a>, for these three types of
 pre-trained language models, we first performed training with a
 re-ranking model using only the morphological analysis results and then
 performed training with a second re-ranking model using the top five
@@ -446,11 +625,14 @@ addition, the minibatch size was 120 with a maximum sequence length of
 384 because the first re-ranking uses only the morphological analysis
 results as input. The minibatch size was 40 with a maximum sequence
 length of 512 because the original input sentences were given as input
-along with the first morphological analysis results. The learning rate
-was set to 2 × 10<sup>−5</sup> and AdamW is used as the optimization
-algorithm.
+along with the first morphological analysis results. See
+Table <a href="#tab:training-options" data-reference-type="ref"
+data-reference="tab:training-options">1</a> for information on other
+training options and software tools used in the implementation of
+re-ranking models.
 
-Table [tab:performance-with-reranking]
+Table <a href="#tab:performance-with-reranking" data-reference-type="ref"
+data-reference="tab:performance-with-reranking">[tab:performance-with-reranking]</a>
 shows that incorporating the re-ranking model significantly improves the
 performance compared with no re-ranking. The error reduction rate (ERR)
 of the performance change from the existing model on eojeol accuracy is
@@ -492,20 +674,47 @@ can be obtained through this iterative feedback loop.
 # Related Work
 
 Korean morphological analyses have seen an influx of various
-methodologies in recent years. The nature of the Korean language, being
+methodologies in recent years . The nature of the Korean language, being
 agglutinative, introduces challenges that have propelled researchers to
 develop inventive solutions, many of which have laid the groundwork for
 future research.
-Table 1
+Table <a href="#tab:overview-of-recent-korean-morphological-analysis-methods"
+data-reference-type="ref"
+data-reference="tab:overview-of-recent-korean-morphological-analysis-methods">2</a>
 provides a concise comparison of the methodologies and key concepts of
 key studies that are directly or indirectly related to this research,
 giving a brief overview of the different methods of morphological
 analysis.
 
+<div id="tab:overview-of-recent-korean-morphological-analysis-methods">
+
+| **Study**            | **Methodology**                                        | **Key Concepts**                                                                                                  |
+|:---------------------|:-------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------|
+| Na et al., 2014      | Lattice-based Discriminative Approach                  | Lattice creation from a lexicon, morpheme connectivity, path optimization in morpheme lattice, POS tagging.       |
+| Na, 2015             | Two-stage Discriminative Approach using CRFs           | Statistical morphological analysis, CRF-based morpheme segmentation and POS tagging, full sentence application.   |
+| Na and Kim, 2018     | Phrase-based Model with CRFs                           | Phrase-based processing units, CRF integration for morpheme segmentation and POS tagging, noise-channel modeling. |
+| Shim, 2011           | Syllable-based POS Tagging with CRFs                   | Syllable-based tagging, efficiency in label assignment, morphological analysis bypass.                            |
+| Lee, 2013            | Joint Model with Structural SVM                        | Word spacing and POS tagging joint modeling, error propagation reduction, structural SVM application.             |
+| Lee et al., 2016     | Hybrid Algorithm with Pre-analyzed Dictionary          | Syllable-based POS tagging, integration of pre-analyzed dictionary and machine learning, CRF application.         |
+| Kim et al., 2016     | POS Tagging with Bi-LSTM-CRFs                          | Syllable pattern input, bi-directional LSTM and CRF for POS tagging, morpheme ambiguity handling.                 |
+| Li et al., 2017      | Sequence-to-Sequence Model with Convolutional Features | Seq2seq model with convolutional features for morphological analysis, POS tagging.                                |
+| Kim and Choi, 2018   | Integrated Model with Bidirectional LSTM-CRF           | Bidirectional LSTM and CRF for word spacing and POS tagging, syllable-based approach.                             |
+| Choi and Lee, 2018   | Reranking Model with Seq2Seq Outputs                   | Seq2Seq model reranking, morpheme-unit embedding, n-gram based morpheme reordering.                               |
+| Min et al., 2019     | Neural Transition-based Model                          | End-to-end neural transition-based learning, morpheme segmentation, sequence-to-sequence POS tagging.             |
+| Kim et al., 2019     | Syllable Distribution Patterns with Bi-LSTM-CRF        | Utilization of syllable distribution, Bi-LSTM-CRF for morphological analysis and POS tagging.                     |
+| Song and Park, 2019  | Tied Sequence-to-Sequence Multi-task Model             | Multi-task learning for morpheme processing and POS tagging, pointer-generator and CRF network integration.       |
+| Song and Park, 2020  | Two-step Korean POS Tagger with Encoder-Decoder        | Encoder-decoder architecture for morpheme generation, sequence labeling for POS tagging.                          |
+| Youn and Lee, 2021   | Two-step Deep Learning-based Pipeline Model            | Deep learning sequence-to-sequence models, BERT for morpheme restoration and POS tagging.                         |
+| Shin and Lee, 2023   | Syllable-Based Multi-POSMORPH Annotation               | Syllable distribution patterns, Multi-POSMORPH tagging, Transformer encoder, BiLSTM usage.                        |
+
+Overview of Recent Korean Morphological Analysis Methods
+
+</div>
+
 ## Traditional Dictionary-based Approaches
 
 The earliest attempts at Korean morphological analysis relied heavily on
-rule- and dictionary-based methods. These methodologies employ
+rule- and dictionary-based methods . These methodologies employ
 predefined sets of linguistic rules or large dictionaries to detect
 morphemes and determine parts of speech. One of the most significant
 advantages of this approach is its deterministic nature, which can lead
@@ -520,9 +729,9 @@ labor-intensive.
 
 To overcome the limitations of dictionary dependence,
 syllable-by-syllable morphological analysis has emerged as an
-alternative. This method either tags each syllable and then applies a
-base-form restoration dictionary or tags the syllable with the base
-form already restored. One notable drawback is the challenge of
+alternative . This method either tags each syllable and then applies a
+base-form restoration dictionary  or tags the syllable with the base
+form already restored . One notable drawback is the challenge of
 accurately pinpointing morpheme boundaries. Furthermore, as the
 sequences increase in length, the system finds it increasingly
 challenging to understand long-term contextual data.
@@ -571,11 +780,11 @@ formed by combining morphemes with different semantic and syntactic
 information.
 
 In this respect, the combination of dictionary-based morphological
-analysis methods and deep learning approaches used by MeCab, a fast and
+analysis methods and deep learning approaches used by MeCab , a fast and
 lightweight morphological analyser used for tokenisation of Korean and
 Japanese, is quite useful. The dictionary-based morphological analysis
 used here uses a model trained with CRFs to form a lattice structure as
-in  to identify the optimal path for morphological analysis. While this
+in   to identify the optimal path for morphological analysis. While this
 method provides a degree of accuracy and speed, it does not achieve the
 high accuracy achieved by modern deep learning.
 
