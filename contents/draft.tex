@@ -45,7 +45,8 @@
 
 
     \begin{table*}[t]
-        \caption{Maximum performance of alternative paths as correct answers}\label{tab:maximum-performance}
+        \caption{Maximum performance of alternative paths as correct answers}
+        \label{tab:maximum-performance}
         \centering
         \begin{tabular*}{500pt}{@{\extracolsep\fill}cccD{.}{.}{3}c@{\extracolsep\fill}}
             \toprule
@@ -96,7 +97,8 @@
     The main motivation for this study was that the path that minimizes the costs for the nodes and links may not be the optimal path.
 
     \begin{table*}[]
-        \caption{Statistics for the Korean morphological corpus as a whole and for training/test data}\label{tab:data-statistics}
+        \caption{Statistics for the Korean morphological corpus as a whole and for training/test data}
+        \label{tab:data-statistics}
         \centering
         \begin{tabular*}{500pt}{@{\extracolsep{\fill}}m{12mm}m{8mm}m{10mm}m{12mm}m{8mm}m{10mm}m{12mm}m{8mm}m{9mm}m{9mm}m{10mm}@{}}
             \toprule
@@ -147,13 +149,15 @@
 
     \begin{figure*}[t]
         \centerline{\includegraphics[width=0.75\textwidth]{fig1.1}}
-        \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}\label{fig:sample}
+        \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}
+        \label{fig:sample}
     \end{figure*}
 
 
     \begin{figure*}[t]
         \centerline{\includegraphics[width=0.9\textwidth]{fig2.1}}
-        \caption{Example of lattice construction and decoding result and secondary path generation}\label{fig:lattice}
+        \caption{Example of lattice construction and decoding result and secondary path generation}
+        \label{fig:lattice}
     \end{figure*}
 
 
@@ -194,7 +198,8 @@
 
     \begin{figure*}[t]
         \centerline{\includegraphics[width=0.9\textwidth]{fig3.0}}
-        \caption{Two-stage re-ranking model for Korean morphological analysis}\label{fig:ranking}
+        \caption{Two-stage re-ranking model for Korean morphological analysis}
+        \label{fig:ranking}
     \end{figure*}
 
     \subsection{Lattice Construction and Decoding}\label{subsec:lattice-construction-and-decoding}
@@ -276,7 +281,8 @@
     We transformed this organized morphological corpus using the training-example transformation process described in Section ~\ref{subsec:training-example-transformation} to generate samples for training the dictionary-based morphological analysis model.
 
     \begin{table*}[]
-        \caption{Performance comparison between morphological analysis systems without re-ranking}\label{tab:performance-without-reranking}
+        \caption{Performance comparison between morphological analysis systems without re-ranking}
+        \label{tab:performance-without-reranking}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}c|cccccc@{\extracolsep\fill}}
             \toprule
             \multirow{2}{*}{System}                & \multicolumn{2}{c}{Sejong}                                & \multicolumn{2}{c}{UCorpus (written)}                     & \multicolumn{2}{c}{Everyone's Corpus (written)}           \\
@@ -325,7 +331,8 @@
     We also found that the compatibility between the Sejong corpus and other corpora is poor, as the model trained on the Sejong corpus has guaranteed performance when evaluated on the Sejong corpus, and some performance degradation occurs on other corpora.
 
     \begin{table*}[]
-        \caption{Performance comparison between morphological analysis systems with Two-stage re-ranking}\label{tab:performance-with-reranking}
+        \caption{Performance comparison between morphological analysis systems with Two-stage re-ranking}
+        \label{tab:performance-with-reranking}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}c|cccccc@{\extracolsep\fill}}
             \toprule
             \multirow{2}{*}{System}                       & \multicolumn{2}{c}{Sejong}                                & \multicolumn{2}{c}{UC+EC (written)}                       & \multicolumn{2}{c}{UC+EC (spoken)}                        \\
@@ -340,6 +347,30 @@
             \bottomrule
         \end{tabular*}
     \end{table*}
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \caption{Training Options and Software Information for Re-ranking Model}
+        \label{tab:training-options}
+        \begin{tabular}{|p{24mm}|p{25mm}|p{25mm}|}
+            \hline
+            ~                     & \textbf{First-Stage}                & \textbf{Second-Stage}                                        \\ \hline
+            Input Type            & Only Morphological Analysis Results & First Morphological Analysis Results and Original Input Sentences \\ \hline
+            Max Sequence Length   & 384                                 & 512                                                               \\ \hline
+            Minibatch Size        & 120                                 & 40                                                                \\ \hline
+            Training Epochs       & 5                                   & 7                                                                 \\ \hline
+            Devices Used          & \multicolumn{2}{l|}{4 GPUs}                                                                             \\ \hline
+            Distribution Strategy & \multicolumn{2}{l|}{ddp}                                                                                \\ \hline
+            FP Precision          & \multicolumn{2}{l|}{16-bit}                                                                             \\ \hline
+            Learning Rate         & \multicolumn{2}{l|}{$2 \times 10^{-5}$}                                                                 \\ \hline
+            LR Scheduler          & \multicolumn{2}{l|}{ExponentialLR (gamma=0.9)}                                                          \\ \hline
+            Optimizer Type        & \multicolumn{2}{l|}{AdamW}                                                                              \\ \hline
+            PyTorch               & \multicolumn{2}{l|}{version 2.0.1}                                                                      \\ \hline
+            PyTorch Lightning     & \multicolumn{2}{l|}{version 2.0.6}                                                                      \\ \hline
+            Transformers          & \multicolumn{2}{l|}{version 4.31.0}                                                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
     \subsection{Re-ranking Performance}\label{subsec:reranking-performance}
 
@@ -356,7 +387,8 @@
     Preliminary tests indicate that using the same type of model or input results in a nearly identical retrained model, with no further improvement in performance.
 
     \begin{table*}[]
-        \caption{Comparison of performance differences with previous studies}\label{tab:differences-with-previous-studies}
+        \caption{Comparison of performance differences with previous studies}
+        \label{tab:differences-with-previous-studies}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}ccc|cc@{\extracolsep\fill}}
             \toprule
             \multirow{2}{*}{Authors}              & \multirow{2}{*}{Model}                          & \multirow{2}{*}{Data (train, test)}         & \multicolumn{2}{c}{Performance}                           \\
@@ -383,7 +415,7 @@
     For a large number of sentences, we adopted a floating-point 16-bit technique while using four GPUs for distributed training and significantly reduced the time required for training.
     In addition, the minibatch size was 120 with a maximum sequence length of 384 because the first re-ranking uses only the morphological analysis results as input.
     The minibatch size was 40 with a maximum sequence length of 512 because the original input sentences were given as input along with the first morphological analysis results.
-    The learning rate was set to $2 \times 10^{-5}$ and AdamW is used as the optimization algorithm.
+    See Table~\ref{tab:training-options} for information on other training options and software tools used in the implementation of re-ranking models.
 
     Table~\ref{tab:performance-with-reranking} shows that incorporating the re-ranking model significantly improves the performance compared with no re-ranking.
     The error reduction rate (ERR) of the performance change from the existing model on eojeol accuracy is shown as 29\%, 27\%, and 20\% for the Sejong corpus, combined written corpus, and combined spoken corpus, respectively, with the first round of re-ranking, and the second round of re-ranking improved the performance by increasing the rate to 34\%, 34\%, and 32\%, respectively.
