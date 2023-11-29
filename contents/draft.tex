@@ -212,8 +212,6 @@
 
     \section{Re-ranking Model}\label{sec:reranking-model}
 
-    \subsection{Motivation and Background}\label{subsec:motivation-and-background}
-
     Although dictionary-based morphological analysis offers significant advances, its optimal paths occasionally diverge from the correct solutions that humans understand.
     This divergence underscores the need for a model that reevaluates these primary results and reorients them to achieve higher accuracy.
     This method, called re-ranking, involves generating multiple analyses of an input and then reordering them based on a new set of criteria or models, thereby improving the overall quality of the results.
@@ -252,8 +250,16 @@
     It then performs a second re-ranking, again taking as input the path re-ranked in stage 1 and the original input sentence.
     This was conducted to improve effectiveness, as it was ineffective given the same type of input.
 
+    In summary, the re-ranking model represents a significant advancement in our approach to Korean morphological analysis.
+    By leveraging BERT-based models, we anticipate a marked improvement in accuracy, especially in complex linguistic scenarios.
+    The next section will present our experimental setup and results, providing crucial empirical evidence for the efficacy of the re-ranking model in practical applications.
+
 
     \section{Experimental Results}\label{sec:results}
+
+    Having developed the re-ranking model as a theoretical framework for enhancing Korean morphological analysis, we now turn to empirical validation.
+    This section outlines our experimental setup, designed meticulously to test the performance of our model.
+    Through these experiments, we aim to demonstrate not just the model's accuracy but also its practical applicability in handling the nuances of Korean language processing.
 
     We evaluated the performance of the proposed deep learning-integrated dictionary-based morphological analysis method.
     This section presents the results of the experimental evaluation considering the improvements over conventional methods and the effectiveness of our re-ranking model.
