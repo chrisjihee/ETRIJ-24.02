@@ -57,22 +57,22 @@ morphological analysis method used by MeCab [@MeCab], an open software
 for Korean and Japanese morphological analysis in tokenizers, which is
 an essential preprocessing tool for deep learning, can be effectively
 improved, and a method is proposed. The dictionary-based morphological
-analysis method [@Kudo2004; @NaSH2014; @NaSH2015; @NaSH2018] trained by
-the CRF (Conditional Random Fields) method [@Lafferty2001] lists the
-candidate morphemes in the dictionary from a given sentence to form a
-lattice structure connected by a directed graph and determines the
-optimal morphological analysis path within it. The process of
-determining the optimal path in the lattice uses the Viterbi
-algorithm [@Viterbi1967], which determines the path that minimizes the
-cost of each morpheme node and the sum of the neighborhood costs of two
-consecutive morphemes. The main types of errors in these
-dictionary-based morphological analysis methods occur when new words
-that are not in the dictionary are used in a sentence, or when the
-optimal path calculation selects the incorrect result owing to bias. For
-example, it may be cost-effective to select one long morpheme than
-several short morphemes, but this may often lead to an incorrect
-analysis. The main motivation for this study was that the path that
-minimizes the costs for the nodes and links may not be the optimal path.
+analysis method [@Kudo2004; @NaSH2014; @NaSH2018] trained by the CRF
+(Conditional Random Fields) method [@Lafferty2001] lists the candidate
+morphemes in the dictionary from a given sentence to form a lattice
+structure connected by a directed graph and determines the optimal
+morphological analysis path within it. The process of determining the
+optimal path in the lattice uses the Viterbi algorithm [@Viterbi1967],
+which determines the path that minimizes the cost of each morpheme node
+and the sum of the neighborhood costs of two consecutive morphemes. The
+main types of errors in these dictionary-based morphological analysis
+methods occur when new words that are not in the dictionary are used in
+a sentence, or when the optimal path calculation selects the incorrect
+result owing to bias. For example, it may be cost-effective to select
+one long morpheme than several short morphemes, but this may often lead
+to an incorrect analysis. The main motivation for this study was that
+the path that minimizes the costs for the nodes and links may not be the
+optimal path.
 
 To identify cases in which a suboptimal solution is actually the best
 solution according to the best path calculation, we modified the best
@@ -92,10 +92,10 @@ model were re-ranked based on a convolutional neural network to improve
 the performance. In this study, re-ranking was performed using two BERT
 models of different types and forms, as proposed in  [@Nogueira2019].
 Experimental results show that first-stage re-ranking improves the
-performance by over 20% over previously written and spoken models, and
+performance by over 20% over existing written and spoken models, and
 second-stage re-ranking with a different type of input and a different
 type of pre-trained model further improves the performance by more than
-30% over previously written and spoken models.
+30% over existing written and spoken models.
 
 With this method, the performance of the dictionary-based morphological
 analysis method could be further improved; however, the overall analysis
@@ -107,8 +107,9 @@ backpropagation process in a typical neural network. It is also expected
 that the morphological analysis system with improved connection costs
 will be able to generate better re-ranking candidates, which will
 further improve performance by doing so iteratively. Further research is
-required in the future. In this study, only performance improvement
-using the second-stage re-ranking was covered as the scope of the study.
+needed on this, and this study was limited to performance improvements
+with two-stage reranking.
+
 The main contributions of this study are as follows.
 
 1.  **Further improvement of dictionary-based morphological analysis
@@ -205,7 +206,7 @@ surface form. Crucial to this transformation is string alignment, a
 process that accounts for the discrepancies between lemma forms and
 surface forms in the Korean morphological analysis corpus.
 
-In this study, string alignment was performed using the Smith--Waterman
+In this study, string alignment was performed using the Smith-Waterman
 algorithm, which uses a scoring matrix based on the similarity of the
 grapheme unit of Korean letters for each word pair (as shown in
 Figure [\[fig:sample\]](#fig:sample){reference-type="ref"
@@ -537,28 +538,6 @@ key studies that are directly or indirectly related to this research,
 giving a brief overview of the different methods of morphological
 analysis.
 
-::: {#tab:overview-of-recent-korean-morphological-analysis-methods}
-  **Authors**                         **Methodology**                                                                                                    **Key Concepts**
-  ----------------------------------- ------------------------------------------------------------------------------------------------------------------ -----------------------------------------------------------------------------------------
-  Na et al., 2014 [@NaSH2014]         Lattice-based discriminative approach creating a morpheme lattice for POS tagging and morphological analysis       Lattice-based analysis, morpheme segmentation, structured classification
-  Na and Kim, 2018 [@NaSH2018]        Phrase-based model for morphological analysis integrating phrases with CRFs                                        Phrase-based modeling, CRFs, discriminative modeling
-  Shim, 2011 [@ShimKS2011]            Syllable-based POS tagging method avoiding morphological analysis by employing CRF models                          Syllable-based POS tagging, CRF models, lexical and contextual probabilities
-  Lee, 2013 [@LeeCK2013]              Joint model using structural SVM for concurrent word spacing and POS tagging                                       Joint modeling, word spacing, POS tagging, structural SVM, error propagation
-  Lee et al., 2016 [@LeeCH2016]       Hybrid algorithm combining machine learning with a pre-analyzed dictionary for syllable-based POS tagging          Hybrid algorithm, syllable-based POS tagging, machine learning, CRF
-  Kim et al., 2016 [@KimHM2016]       Method utilizing Bi-LSTM-CRF for POS tagging with input based on syllable distribution patterns                    Syllable-based POS tagging, bi-directional LSTM, CRFs, POS distribution vectors
-  Li et al., 2017 [@Li2017]           End-to-end sequence-to-sequence model with convolutional features for morphological analysis and POS tagging       Sequence-to-sequence model, convolutional features, morphological analysis, POS tagging
-  Kim and Choi, 2018 [@KimSW2018]     Integrated model using Bi-LSTM-CRF for simultaneous word spacing and POS tagging                                   Bidirectional LSTM, CRF, word spacing, POS tagging, syllable-based analysis
-  Choi and Lee, 2018 [@ChoiYS2018]    Reranking model post-processing seq2seq outputs with morpheme-unit embedding and n-grams to reorder results        Seq2seq model, reranking, morpheme-unit embedding, beam search, n-grams
-  Min et al., 2019 [@MinJW2019]       Neural transition-based model for end-to-end morpheme segmentation and POS tagging                                 Neural transition-based learning, end-to-end model, morpheme segmentation, POS tagging
-  Kim et al., 2019 [@KimHM2019]       Syllable distribution pattern utilization with Bi-LSTM-CRF for morphological analysis and POS tagging              Syllable distribution patterns, Bi-LSTM-CRF, morphological analysis, POS tagging
-  Song and Park, 2019 [@SongHJ2019]   Tied sequence-to-sequence multi-task model for morpheme processing and POS tagging                                 Multi-task learning, POS tagging, Morpheme generation, Sequence-to-sequence model
-  Song and Park, 2020 [@SongHJ2020]   Two-step POS tagging using an encoder-decoder architecture for morpheme generation followed by sequence labeling   POS Tagging, Morpheme Generation, Encoder-Decoder Architecture, Sequence Labeling
-  Youn and Lee, 2021 [@YounJY2021]    Two-step deep learning-based pipeline model for morpheme restoration and POS tagging with BERT                     Deep Learning, Sequence-to-Sequence, BERT, Morpheme Restoration, POS Tagging
-  Shin and Lee, 2023 [@ShinHJ2023]    Syllable-Based Multi-POSMORPH Annotation approach                                                                  Syllable distribution patterns, Multi-POSMORPH tags, Transformer encoder, BiLSTM
-
-  : Overview of Recent Korean Morphological Analysis Methods
-:::
-
 ## Traditional Dictionary-based Approaches {#subsec:traditional-dictionary-based-approaches}
 
 The earliest attempts at Korean morphological analysis relied heavily on
@@ -585,31 +564,68 @@ is the challenge of accurately pinpointing morpheme boundaries.
 Furthermore, as the sequences increase in length, the system finds it
 increasingly challenging to understand long-term contextual data.
 
-## Deep Learning and Tokenization {#subsec:deep-learning-and-tokenization}
+## Recent Deep Learning Approaches {#subsec:recent-deep-learning-approaches}
 
-The advent of deep learning has reshaped the Korean morphological
-analysis landscape. High-performance deep learning models in NLP employ
-tokenization, dividing the text into smaller units and then converting
-these tokens into vectors as an input to the computational
-model [@Mikolov2013]. The attempt to conduct subword tokenization,
-incorporating separate morphemes to cater to Korean linguistic
-characteristics is particularly significant. Incorporating accurate
-morpheme analysis results into tokenization can improve overall analysis
-performance.
+The incorporation of deep learning into Korean morphological analysis
+has brought significant advancements to the field. Existing deep
+learning methods typically employ architectures like Bidirectional Long
+Short-Term Memory (Bi-LSTM) networks, Convolutional Neural Networks
+(CNNs), and Transformer-based models. These approaches focus on
+understanding language context and sequence, utilizing the ability of
+these models to capture long-range dependencies and intricate patterns
+in text data. For example, Bi-LSTM-CRF models, extensively used for
+sequence labeling in morphological analysis, leverage LSTM's capacity to
+remember long-term dependencies and CRF's proficiency in sequence
+prediction.
 
-With advancements in technology and access to large datasets, the
-potential to integrate dictionary-based methods with deep learning
-techniques has emerged. As motivated in our study, MeCab [@MeCab], an
-open software for Korean and Japanese morphological analysis, utilized
-dictionary-based morphological analysis trained by the CRF
-method [@Lafferty2001]. This method attempts to find the optimal
-morphological analysis path by forming a lattice structure as in
- [@Kudo2004; @NaSH2014; @NaSH2015; @NaSH2018]. The amalgamation of
-dictionary-based methods with deep learning, as explored in our
-research, signifies the latest strides in this journey aimed at
-harnessing the strengths of both approaches. Future research avenues
-include refining these hybrid methods and exploring the capabilities of
-end-to-end models.
+In contrast, our method innovatively integrates the re-ranking concept
+with BERT-based models for Korean morphological analysis. Unlike
+traditional deep learning methods that primarily use
+sequence-to-sequence or sequence labeling approaches, our method
+generates suboptimal paths using dictionary-based techniques, which are
+then re-ranked by BERT models. This dual approach, leveraging BERT's
+contextual understanding, allows for a more detailed and accurate
+morphological analysis. The distinction of our approach lies in its
+ability to address the complexities of the Korean language. By
+generating and re-ranking suboptimal paths, our method can identify and
+rectify anomalies that standard deep learning models may miss. This
+innovative strategy combines the precision of dictionary-based methods
+with the contextual comprehension of BERT models, marking a significant
+advancement in the field, especially for languages with intricate
+morphological structures like Korean.
+
+## Integrating Dictionary-based and Deep Learning Approaches {#subsec:integrating-dictionary-based-and-deep-learning-approaches}
+
+Tokenisation, a fundamental process in NLP deep learning models,
+involves breaking down text into smaller units and converting these
+tokens into vectors for computational processing. For Korean, with its
+complex morphological characteristics, tokenisation that respects
+morpheme boundaries is crucial. This is because it can not only
+accurately capture the linguistic nuances of Korean, but also improve
+the overall performance of deep learning models. This is especially
+important given the agglutinative nature of Korean, where words are
+formed by combining morphemes with different semantic and syntactic
+information.
+
+In this respect, the combination of dictionary-based morphological
+analysis methods and deep learning approaches used by MeCab [@MeCab], a
+fast and lightweight morphological analyser used for tokenisation of
+Korean and Japanese, is quite useful. The dictionary-based morphological
+analysis used here uses a model trained with CRFs to form a lattice
+structure as in  [@Kudo2004; @NaSH2014; @NaSH2018] to identify the
+optimal path for morphological analysis. While this method provides a
+degree of accuracy and speed, it does not achieve the high accuracy
+achieved by modern deep learning.
+
+Our research sought to bridge this gap by effectively combining these
+dictionary-based morphological analysis methods with the contextual
+understanding capabilities of deep learning. Future research should
+continue to refine these hybrid methods to explore the possibility of
+end-to-end models that seamlessly combine the strengths of traditional
+dictionary-based analysis with the adaptive capabilities of deep
+learning. This direction promises significant advances in morphological
+analysis and will further push the boundaries of Korean language
+processing.
 
 # Conclusion {#sec:conclusion}
 
