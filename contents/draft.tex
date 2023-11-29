@@ -182,7 +182,7 @@
     To train a dictionary-based morpheme analysis model effectively, the morpheme-tagged corpus, typically represented in lemma form, must be transformed to include the boundary information between morphemes in its surface form.
     Crucial to this transformation is string alignment, a process that accounts for the discrepancies between lemma forms and surface forms in the Korean morphological analysis corpus.
 
-    In this study, string alignment was performed using the Smith--Waterman algorithm, which uses a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as shown in Figure~\ref{fig:sample}). Each aligned sentence containing a morpheme tag was converted into a training sample tailored for dictionary-based morphological analysis.
+    In this study, string alignment was performed using the Smith-Waterman algorithm, which uses a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as shown in Figure~\ref{fig:sample}). Each aligned sentence containing a morpheme tag was converted into a training sample tailored for dictionary-based morphological analysis.
 
     The resulting table in Figure~\ref{fig:sample} illustrates this process.
     Each row acts as a lexical unit.
