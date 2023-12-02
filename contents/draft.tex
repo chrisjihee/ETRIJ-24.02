@@ -413,8 +413,8 @@
     \end{table*}
 
     In the BERT-based re-ranking described in Section~\ref{sec:reranking-model}, we compared the performances using three pre-trained language models: KPF-BERT, ETRI-ELECTRA, and ETRI-RoBERTa, known for their proficiency in other Korean language understanding tasks.
-    The models were fine-tuned for re-ranking with distinct inputs.
-    Preliminary tests indicated that using the same type of model or input yielded nearly identical retrained models, with no further improvement in performance.
+    Each model uses a different form of vocabulary, so we had to vary the input accordingly.
+    Preliminary tests showed that two-stage re-ranking using the same model or input did not improve performance, but using different models and input types did.
 
     Training data for the re-ranking model comprised 190,000 sentences from the Sejong corpus, 240,000 sentences from the written language of the combined UCorpus and Everyone's corpus, and 360,000 sentences from the spoken language of the combined UCorpus and Everyone's corpus.
     Utilizing a floating-point 16-bit technique with four GPUs for distributed training significantly reduced the training time.
