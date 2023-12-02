@@ -267,29 +267,30 @@
 
     \section{Experimental Results}\label{sec:results}
 
-    Having developed the re-ranking model as a theoretical framework for enhancing Korean morphological analysis, we now turn to empirical validation.
-    This section outlines our experimental setup, designed meticulously to test the performance of our model.
-    Through these experiments, we aim to demonstrate not just the model's accuracy but also its practical applicability in handling the nuances of Korean language processing.
+    Having formulated the re-ranking model as a theoretical framework to enhance Korean morphological analysis, our focus now shifts to empirical validation.
+    This section delineates our carefully designed experimental setup, crafted to rigorously assess the performance of our model.
+    Through these experiments, our goal is not only to showcase the model's accuracy but also to highlight its practical applicability in navigating the intricacies of Korean language processing.
 
-    We evaluated the performance of the proposed deep learning-integrated dictionary-based morphological analysis method.
-    This section presents the results of the experimental evaluation considering the improvements over conventional methods and the effectiveness of our re-ranking model.
+    Our evaluation centers on the performance of the proposed deep learning-integrated dictionary-based morphological analysis method.
+    The ensuing section unfolds the results of our experimental assessment, delving into the enhancements over conventional methods and elucidating the effectiveness of our re-ranking model.
 
     \subsection{Setup and Data}\label{subsec:setup-and-data}
 
-    For our experiments, we used the Sejong corpus (versions used in ~\cite{NaSH2014, NaSH2015, NaSH2018, SongHJ2019, SongHJ2020}), UCorpus\cite{UCorpusHG}, and Everyone's Corpus\cite{EveryoneCorpus}.
-    For comparison with previous studies, the Sejong corpus was trained using a single model without separation.
-    The UCorpus and Everyone's Corpus provided a separate spoken corpus with drama scripts and broadcast dialogues, while UCorpus separated documents that were considered to be close to spoken language and further organized them into a semi-spoken corpus.
-    Because UCorpus and Everyone's Corpus have synergistic effects when trained concurrently, we trained the models separately for written and spoken language rather than separating them by source.
-    The statistics of the full data for the three types of models are presented in Table~\ref{tab:data-statistics}.
-    Because of the large volume of UCorpus, we randomly selected some of them to train the actual model.
+    For our experiments, we utilized the Sejong corpus (used in ~\cite{MinJW2019, MinJW2020, MinJW2022, MinJW2018, NaSH2015, NaSH2014, NaSH2018, SongHJ2019, SongHJ2020}), UCorpus\cite{UCorpusHG}, and Everyone's Corpus\cite{EveryoneCorpus}.
+    In line with previous studies for comparison purposes, the Sejong corpus underwent training using a single model without separation.
+    Both UCorpus and Everyone's Corpus contributed a separate spoken corpus containing drama scripts and broadcast dialogues.
+    UCorpus further categorized documents close to spoken language, organizing them into a semi-spoken corpus.
+    Given the synergistic effects of training UCorpus and Everyone's Corpus simultaneously, we opted to train models separately for written and spoken language rather than segregating them by source.
+    The statistics encompassing the full data for the three types of models are detailed in Table~\ref{tab:data-statistics}.
+    Due to the extensive volume of UCorpus, a random selection process was employed to train the actual model.
 
-    We transformed this organized morphological corpus using the training-example transformation process described in Section ~\ref{subsec:training-example-transformation} to generate samples for training the dictionary-based morphological analysis model.
+    To prepare for training the dictionary-based morphological analysis model, we transformed this organized morphological corpus using the training-example transformation process outlined in Section~\ref{subsec:training-example-transformation}, generating samples tailored for training.
 
     \subsection{Evaluation Metrics}\label{subsec:evaluation-metrics}
 
-    To measure the accuracy of the morphological analysis model, correctness of the N-best path, and ranking accuracy of the reranking model, we used the eojeol accuracy and morpheme F1 scores as evaluation metrics.
-    To verify that they produced the correct morphological analysis results, we measured the degree of agreement with human annotations on the corpus.
-    However, owing to the slightly different criteria and styles of the annotators who labeled the different types of corpora, including the comparison with the MeCab-ko system, the following adjustments were made:
+    To assess the accuracy of the morphological analysis model, the correctness of the N-best path, and the ranking accuracy of the re-ranking model, we employed eojeol accuracy and morpheme F1 scores as evaluation metrics.
+    To validate the correctness of morphological analysis results, we measured the degree of agreement with human annotations on the corpus.
+    However, due to slight differences in criteria and annotation styles among annotators labeling various corpora, including the comparison with the MeCab-ko system, the following adjustments were made:
     \begin{itemize}
         \item Sentences containing unanalyzable tags (NF, NA, and NV) were excluded from both training and evaluation.
         \item As for the tagsets, we excluded three unanalyzable tags from the 45 Sejong tagsets and used 42 tagsets.
@@ -298,17 +299,19 @@
         \item Similarly, symbol, numeral, ending, and postposition in the same tag were converted to a single morpheme, and decimal expressions were treated as a single morpheme, including the midpoint and the numbers before and after.
         \item If the first lemma letter of the ending is `[eo]', `[yeo]', or `[ah]', it is unified as `[eo]', and if it is `[eot]', `[yeot]', or `[ass]', it is unified as `[eot]'. %`어[eo]', `여[yeo]', or `아[ah]' % `었[eot]', `였[yeot]', or `았[ass]'
         \item Root tags (XR) used alone without affixes were replaced with common nouns (NNG) because they are mainly used in the Sejong corpus only.
-        \item As mentioned in ~\cite{KimIH2010}, connective endings (EC) and sentence-closing endings (EF) are not clearly defined in the tagging guidelines, and there are cases where they are used interchangeably in the corpus, to ensure that we evaluated them without distinguishing them.
+        \item Connective endings (EC) and sentence-closing endings (EF) are not clearly defined in the tagging guidelines as mentioned in ~\cite{KimIH2010}, and there are cases where they are used interchangeably in the corpus, so we evaluated them without distinguishing them.
         \item The distinction between `[geot]' and `[geo]' is unclear in the tagging guidelines, and there are cases where they are used interchangeably in the corpus, hence, we did not distinguish between them. %`것[geot]' and `거[geo]'
-        \item Compound words can be interpreted as a single morpheme or as a combination of two or more morphemes or affixes, hence, we evaluated them without distinguishing between them.
-        \item Proper nouns can also be interpreted as common nouns depending on the point of view or perspective. Human annotators have slightly different standards, and thus they were also evaluated without distinguishing the nouns.
+        \item Compound words can be interpreted as a single morpheme or as a combination of two or more morphemes or affixes; therefore, we evaluated them without distinguishing between these interpretations.
+        \item Proper nouns can also be interpreted as common nouns depending on the point of view or perspective. Human annotators have slightly different standards, and thus, they were also evaluated without distinguishing the nouns.
     \end{itemize}
 
     \subsection{Basic Performance}\label{subsec:basic-performance}
 
-    First, we compared the initial results of the dictionary-based morphological analysis model trained using the method described in Section ~\ref{sec:morphological-analysis-model} with those of MeCab and syllable-based morphological analysis systems (refer to Table~\ref{tab:performance-without-reranking}).
-    The results show that the dictionary-based method implemented is superior to the existing MeCab system, but it differs from human evaluations owing to the limitations mentioned above, and it does not reach the performance of existing syllable-based morphological analysis systems.
-    We also found that the compatibility between the Sejong corpus and other corpora is poor, as the model trained on the Sejong corpus has guaranteed performance when evaluated on the Sejong corpus, and some performance degradation occurs on other corpora.
+    Initially, we conducted a comparison between the results of the dictionary-based morphological analysis model trained using the method outlined in Section~\ref{sec:morphological-analysis-model} and those of MeCab and syllable-based morphological analysis systems (refer to Table~\ref{tab:performance-without-reranking}).
+    The outcomes indicate that the implemented dictionary-based method outperforms the existing MeCab system.
+    However, it deviates from human evaluations due to the aforementioned limitations and does not attain the performance level of existing syllable-based morphological analysis systems.
+    Additionally, we observed poor compatibility between the Sejong corpus and other corpora.
+    The model trained on the Sejong corpus exhibits guaranteed performance when evaluated on the Sejong corpus, but some performance degradation occurs on other corpora.
 
     \begin{table*}[h]
         \caption{Performance comparison between morphological analysis systems without re-ranking}
@@ -379,10 +382,10 @@
 
     \subsection{Re-ranking Performance}\label{subsec:reranking-performance}
 
-    Upon integrating the BERT-based re-ranking model, we observed substantial performance enhancement.
-    Table~\ref{tab:performance-with-reranking} shows that the re-ranking model identified a better path in a significant proportion of cases.
-    The first-stage re-ranking exhibited a performance improvement of over 20\% compared with traditional models.
-    The subsequent re-ranking, leveraging a distinct type of input and a different pre-trained model, further augmented the performance by more than 30\%.
+    With the integration of the BERT-based re-ranking model, we observed substantial performance enhancement.
+    Table~\ref{tab:performance-with-reranking} illustrates that the re-ranking model identified a better path in a significant proportion of cases.
+    The first-stage re-ranking exhibited a performance improvement of over 20\% compared to traditional models.
+    Subsequent re-ranking, leveraging a distinct type of input and a different pre-trained model, further augmented the performance by more than 30\%.
 
     \begin{table*}[]
         \caption{Comparison of performance differences with previous studies}
@@ -409,41 +412,39 @@
         \end{tabular*}
     \end{table*}
 
-    Next, we performed the BERT-based re-ranking described in Section ~\ref{sec:reranking-model} and compared its performances.
-    Three pre-trained language models, KPF-BERT, ETRI-ELECTRA, and ETRI-RoBERTa, which are known to perform well in other Korean language understanding tasks, were used to fine-tune the re-ranking model.
-    KPF-BERT received Korean sentences as input, ETRI-ELECTRA received morphologically tagged sentences as input, and ETRI-RoBERTa receives morpheme-separated sentences as input.
-    For KPF-BERT and ETRI-RoBERTa, there may be problems with model learning because of the separation of morpheme tags into letter units during the tokenization process when the morpheme analysis results were received as input and re-ranked, hence, the morpheme tags of the mid-level classification unit were added as new tokens, and then training was performed.
-    As shown in Figure~\ref{fig:ranking}, for these three types of pre-trained language models, we first performed training with a re-ranking model using only the morphological analysis results and then performed training with a second re-ranking model using the top five morphological analysis results from the first re-ranking results along with the input sentences for other types of pre-trained language models.
-    Preliminary tests indicate that using the same type of model or input results in a nearly identical retrained model, with no further improvement in performance.
+    In the BERT-based re-ranking described in Section~\ref{sec:reranking-model}, we compared the performances using three pre-trained language models: KPF-BERT, ETRI-ELECTRA, and ETRI-RoBERTa, known for their proficiency in other Korean language understanding tasks.
+    The models were fine-tuned for re-ranking with distinct inputs.
+    Preliminary tests indicated that using the same type of model or input yielded nearly identical retrained models, with no further improvement in performance.
 
-    The sentences used for training the re-ranking model were selected from those used for training the dictionary-based morphological analysis model: 190,000 sentences from the Sejong corpus, 240,000 sentences from the written language of the combined UCorpus and Everyone's corpus, and 360,000 sentences from the spoken language of the combined UCorpus and Everyone's corpus.
-    For a large number of sentences, we adopted a floating-point 16-bit technique while using four GPUs for distributed training and significantly reduced the time required for training.
-    In addition, the minibatch size was 120 with a maximum sequence length of 384 because the first re-ranking uses only the morphological analysis results as input.
-    The minibatch size was 40 with a maximum sequence length of 512 because the original input sentences were given as input along with the first morphological analysis results.
-    See Table~\ref{tab:training-options} for information on other training options and software tools used in the implementation of re-ranking models.
+    Training data for the re-ranking model comprised 190,000 sentences from the Sejong corpus, 240,000 sentences from the written language of the combined UCorpus and Everyone's corpus, and 360,000 sentences from the spoken language of the combined UCorpus and Everyone's corpus.
+    Utilizing a floating-point 16-bit technique with four GPUs for distributed training significantly reduced the training time.
+    The minibatch size was 120 with a maximum sequence length of 384 for the first re-ranking, considering only the morphological analysis results as input.
+    For the second re-ranking, the minibatch size was 40 with a maximum sequence length of 512, as the original input sentences were given as input along with the first morphological analysis results.
+    Details on other training options and software tools can be found in Table~\ref{tab:training-options}.
 
-    Table~\ref{tab:performance-with-reranking} shows that incorporating the re-ranking model significantly improves the performance compared with no re-ranking.
-    The error reduction rate (ERR) of the performance change from the existing model on eojeol accuracy is shown as 29\%, 27\%, and 20\% for the Sejong corpus, combined written corpus, and combined spoken corpus, respectively, with the first round of re-ranking, and the second round of re-ranking improved the performance by increasing the rate to 34\%, 34\%, and 32\%, respectively.
-    These performance improvements demonstrate that the dictionary-based morphological analysis model outperforms traditional syllable-based morphological analysis systems, including numerous pre- and post-processing rules and dictionaries.
+    Table~\ref{tab:performance-with-reranking} demonstrates that incorporating the re-ranking model significantly improves performance compared to no re-ranking.
+    The error reduction rate (ERR) of the performance change from the existing model on eojeol accuracy is 29\%, 27\%, and 20\% for the Sejong corpus, combined written corpus, and combined spoken corpus, respectively, with the first round of re-ranking.
+    The second round of re-ranking further improves the performance by increasing the rate to 34\%, 34\%, and 32\%, respectively.
+    These performance improvements underscore the superiority of the dictionary-based morphological analysis model over traditional syllable-based morphological analysis systems, including those with numerous pre- and post-processing rules and dictionaries.
 
     \subsection{Comparison to Other Studies}\label{subsec:comparison-to-other-studies}
 
-    We found that the proposed transformer-based re-ranking technique consistently improved the results of the existing morphological analysis models.
-    These results confirm that it opens up new possibilities by further improving the results of existing traditional machine-learning models in the field of Korean morphological analysis.
-    Finally, because the major related studies proposed in the literature were mostly conducted on the Sejong corpus, we compared the performance improvement of the Sejong corpus with the results of previous studies.
-    Although it is difficult to make a direct comparison because of slight differences in implementation conditions and evaluation criteria.
-    The proposed dictionary-based morphological analysis model is not up to the latest research results; however, by incorporating a re-ranking model, it can secure a performance that is comparable to existing research.
+    The proposed transformer-based re-ranking technique consistently improved the results of existing morphological analysis models, showcasing its potential to enhance outcomes in the field of Korean morphological analysis.
+    These findings suggest that it opens up new possibilities by further refining the results of traditional machine-learning models.
+    In a comparative analysis with previous studies, particularly those predominantly focused on the Sejong corpus, we observed performance improvements.
+    While direct comparisons are challenging due to slight differences in implementation conditions and evaluation criteria, the proposed dictionary-based morphological analysis model, when coupled with a re-ranking model, achieved a performance comparable to existing research, though not at the latest research results.
 
-    The entire morphological analysis model, including the re-ranking model, is not suitable for real-time processing.
-    However, it is expected that by reflecting the cases whose ranks are changed through the re-ranking model as feedback to the dictionary-based morphological analysis model, it will be feasible to obtain near-improved morphological analysis performance.
-    The improved dictionary-based morphological analysis model can then be used as input to the re-ranking model; therefore, it is expected that a gradually improvement in morphological analysis model can be obtained through this iterative feedback loop.
+    It's worth noting that the entire morphological analysis model, inclusive of the re-ranking model, may not be optimal for real-time processing.
+    However, by incorporating cases where ranks are altered through the re-ranking model as feedback to the dictionary-based morphological analysis model, it becomes plausible to achieve near-improved morphological analysis performance.
+    The enhanced dictionary-based morphological analysis model can then serve as input to the re-ranking model, fostering iterative improvement in the overall morphological analysis model through this feedback loop.
 
 
     \section{Related Work}\label{sec:related-work}
 
-    Korean morphological analyses have seen an influx of various methodologies in recent years~\cite{KwonHC1991, LeeDG2009, ShimKS2011, LeeJS2011, ShinJC2012, LeeCK2013, NaSH2014, NaSH2015, HwangHS2016, KimHM2016, ChungES2016, LeeCH2016, Li2017, NaSH2018, KimSW2018, ChoiYS2018, MinJW2018, MinJW2019, KimHM2019, SongHJ2019, MinJW2020, SongHJ2020, ChoiYS2020, HwangHS2020, KimHJ2021, YounJY2021, MinJW2022, KimJM2022, ShinHJ2023}.
-    The nature of the Korean language, being agglutinative, introduces challenges that have propelled researchers to develop inventive solutions, many of which have laid the groundwork for future research.
-    Table~\ref{tab:overview-of-recent-korean-morphological-analysis-methods} provides a concise comparison of the methodologies and key concepts of key studies that are directly or indirectly related to this research, giving a brief overview of the different methods of morphological analysis.
+    In recent years, Korean morphological analyses have witnessed a diverse range of methodologies~\cite{KwonHC1991, LeeDG2009, ShimKS2011, LeeJS2011, ShinJC2012, LeeCK2013, NaSH2014, NaSH2015, HwangHS2016, KimHM2016, ChungES2016, LeeCH2016, Li2017, NaSH2018, KimSW2018, ChoiYS2018, MinJW2018, MinJW2019, KimHM2019, SongHJ2019, MinJW2020, SongHJ2020, ChoiYS2020, HwangHS2020, KimHJ2021, YounJY2021, MinJW2022, KimJM2022, ShinHJ2023}.
+    The agglutinative nature of the Korean language poses challenges that have inspired researchers to devise innovative solutions, laying the foundation for future investigations.
+    Table~\ref{tab:overview-of-recent-korean-morphological-analysis-methods} offers a succinct comparison of the methodologies and key concepts from relevant studies, both directly and indirectly related to this research.
+    This table provides a brief overview of the various approaches to morphological analysis.
 
     \begin{table}[h!]
         \centering
@@ -490,17 +491,17 @@
     \end{table}
 
     \subsection{Traditional Dictionary-based Approaches}\label{subsec:traditional-dictionary-based-approaches}
-    The earliest attempts at Korean morphological analysis relied heavily on rule- and dictionary-based methods~\cite{KwonHC1991}.
-    These methodologies employ predefined sets of linguistic rules or large dictionaries to detect morphemes and determine parts of speech.
-    One of the most significant advantages of this approach is its deterministic nature, which can lead to high accuracy when the input text closely adheres to the rules or dictionaries used.
-    However, it is challenging to scale and update them, particularly with the constant evolution of language and the emergence of new words.
-    The dynamic nature of language, particularly in the Internet age, has made the maintenance of comprehensive dictionaries labor-intensive.
+    In the initial stages of Korean morphological analysis, the predominant methods leaned heavily on rule- and dictionary-based approaches~\cite{KwonHC1991}.
+    These methodologies relied on predefined sets of linguistic rules or extensive dictionaries to identify morphemes and assign parts of speech.
+    One notable advantage of this approach is its deterministic nature, often resulting in high accuracy when the input text aligns closely with the utilized rules or dictionaries.
+    However, scalability and updates pose challenges, especially given the continuous evolution of language and the introduction of new words.
+    The dynamic nature of language, particularly in the Internet age, has rendered the maintenance of comprehensive dictionaries a labor-intensive task.
 
     \subsection{Syllable-unit Morphological Analysis}\label{subsec:syllable-unit-morphological-analysis}
-    To overcome the limitations of dictionary dependence, syllable-by-syllable morphological analysis has emerged as an alternative~\cite{ShimKS2011, LeeCK2013, LeeCH2016, KimHM2016, Li2017, KimSW2018, ChoiYS2018, MinJW2019, KimHM2019, SongHJ2019, SongHJ2020, YounJY2021, ShinHJ2023}.
-    This method either tags each syllable and then applies a base-form restoration dictionary~\cite{ShimKS2011, LeeCH2016} or tags the syllable with the base form already restored~\cite{YounJY2021}.
-    One notable drawback is the challenge of accurately pinpointing morpheme boundaries.
-    Furthermore, as the sequences increase in length, the system finds it increasingly challenging to understand long-term contextual data.
+    To address the drawbacks of dictionary dependence, syllable-by-syllable morphological analysis has emerged as an alternative~\cite{ShimKS2011, LeeCK2013, LeeCH2016, KimHM2016, Li2017, KimSW2018, ChoiYS2018, MinJW2019, KimHM2019, SongHJ2019, SongHJ2020, YounJY2021, ShinHJ2023}.
+    This approach involves either tagging each syllable and then applying a base-form restoration dictionary~\cite{ShimKS2011, LeeCH2016} or tagging the syllable with the base form already restored~\cite{YounJY2021}.
+    However, a notable drawback is the difficulty in accurately identifying morpheme boundaries.
+    Additionally, as the sequences increase in length, the system faces increasing challenges in comprehending long-term contextual data.
 
     \subsection{Recent Deep Learning Approaches}\label{subsec:recent-deep-learning-approaches}
     The incorporation of deep learning into Korean morphological analysis has brought significant advancements to the field.
@@ -516,31 +517,31 @@
     This innovative strategy combines the precision of dictionary-based methods with the contextual comprehension of BERT models, marking a significant advancement in the field, especially for languages with intricate morphological structures like Korean.
 
     \subsection{Integrating Dictionary-based and Deep Learning Approaches}\label{subsec:integrating-dictionary-based-and-deep-learning-approaches}
-    Tokenisation, a fundamental process in NLP deep learning models, involves breaking down text into smaller units and converting these tokens into vectors for computational processing.
-    For Korean, with its complex morphological characteristics, tokenisation that respects morpheme boundaries is crucial.
-    This is because it can not only accurately capture the linguistic nuances of Korean, but also improve the overall performance of deep learning models.
-    This is especially important given the agglutinative nature of Korean, where words are formed by combining morphemes with different semantic and syntactic information.
+    Tokenization, a fundamental process in NLP deep learning models, involves breaking down text into smaller units and converting these tokens into vectors for computational processing.
+    In the case of Korean, with its complex morphological characteristics, tokenization that respects morpheme boundaries is crucial.
+    This approach not only accurately captures the linguistic nuances of Korean but also enhances the overall performance of deep learning models.
+    This is particularly critical given the agglutinative nature of Korean, where words are formed by combining morphemes with different semantic and syntactic information.
 
-    In this respect, the combination of dictionary-based morphological analysis methods and deep learning approaches used by MeCab~\cite{MeCab}, a fast and lightweight morphological analyser used for tokenisation of Korean and Japanese, is quite useful.
-    The dictionary-based morphological analysis used here uses a model trained with CRFs to form a lattice structure as in ~\cite{Kudo2004, NaSH2014, NaSH2018} to identify the optimal path for morphological analysis.
-    While this method provides a degree of accuracy and speed, it does not achieve the high accuracy achieved by modern deep learning.
+    The combination of dictionary-based morphological analysis methods and deep learning approaches used by MeCab~\cite{MeCab}, a fast and lightweight morphological analyzer for Korean and Japanese tokenization, proves to be valuable in this context.
+    The dictionary-based morphological analysis employs a model trained with CRFs to form a lattice structure as in ~\cite{Kudo2004, NaSH2014, NaSH2018}, identifying the optimal path for morphological analysis.
+    While this method provides a certain level of accuracy and speed, it falls short of the high accuracy achieved by modern deep learning.
 
-    Our research sought to bridge this gap by effectively combining these dictionary-based morphological analysis methods with the contextual understanding capabilities of deep learning.
-    Future research should continue to refine these hybrid methods to explore the possibility of end-to-end models that seamlessly combine the strengths of traditional dictionary-based analysis with the adaptive capabilities of deep learning.
-    This direction promises significant advances in morphological analysis and will further push the boundaries of Korean language processing.
+    The research aimed to bridge this gap by effectively combining dictionary-based morphological analysis methods with the contextual understanding capabilities of deep learning.
+    Future research should further refine these hybrid methods, exploring the potential of end-to-end models that seamlessly integrate the strengths of traditional dictionary-based analysis with the adaptive capabilities of deep learning.
+    This direction holds the promise of significant advances in morphological analysis, pushing the boundaries of Korean language processing even further.
 
 
     \section{Conclusion}\label{sec:conclusion}
 
-    This study signifies a progressive stride in Korean morphological analysis by seamlessly merging conventional dictionary-based techniques with advanced deep learning methodologies.
-    Our findings indicate that while relying solely on dictionary-based morphological analysis does not surpass the efficacy of some existing models, the integration of a BERT-based re-ranking system notably enhances accuracy, establishing a new standard in this domain.
+    This study represents a significant advancement in Korean morphological analysis, seamlessly integrating traditional dictionary-based techniques with state-of-the-art deep learning methodologies.
+    Our findings reveal that relying solely on dictionary-based morphological analysis may not surpass the efficacy of some existing models, but the incorporation of a BERT-based re-ranking system notably enhances accuracy, establishing a new standard in this domain.
 
-    While the performance improvement increases computational demand, the introduced methodology provides a promising avenue for continuous enhancement.
-    This innovative amalgamation of classical dictionary approaches and cutting-edge machine-learning methodologies paves the way for groundbreaking advancements in the intricate and multifaceted domains of Korean linguistic processing.
+    While the performance improvement comes with increased computational demand, the introduced methodology provides a promising avenue for continuous enhancement.
+    This innovative fusion of classical dictionary approaches and cutting-edge machine-learning methodologies opens the door to groundbreaking advancements in the intricate and multifaceted domains of Korean linguistic processing.
 
-    Future endeavors in this domain should emphasize the refinement of this harmonious integration to achieve even higher precision in morphological analysis while optimizing computational efficiency.
-    Moreover, our observations indicate the potential for employing a probabilistic model to discern areas where inaccuracies are likely to arise, thus enabling the retrieval of more accurate interpretations from a narrower candidate pool.
-    The parallels between this initiative and the challenges of translation quality estimation suggest that insights from the latter can bolster the efficacy of our approach.
+    Future endeavors in this domain should prioritize the refinement of this harmonious integration to achieve even higher precision in morphological analysis while optimizing computational efficiency.
+    Moreover, our observations suggest the potential use of a probabilistic model to identify areas prone to inaccuracies, enabling the retrieval of more accurate interpretations from a narrower candidate pool.
+    The parallels between this initiative and the challenges of translation quality estimation indicate that insights from the latter can further bolster the efficacy of our approach.
 
 
     \bibliography{references}
