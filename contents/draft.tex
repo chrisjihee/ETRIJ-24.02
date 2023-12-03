@@ -87,9 +87,9 @@
     The evolution of the Internet, open sources, and shared knowledge has led to substantial accumulations of web texts, corpora, language resources, offering an opportunity to overcome the constraints of dictionary-based methods due to reduced costs in dictionary construction and maintenance.
 
     Given this context, our study aims to enhance the effectiveness of the dictionary-based morphological analysis method employed by MeCab~\cite{MeCab}, an open-source tool for Korean and Japanese morphological analysis commonly used as a crucial preprocessing tool for deep learning.
-    The method, trained through Conditional Random Fields (CRF)~\cite{Lafferty2001}, generates a lattice structure from a given sentence, connecting candidate morphemes in the dictionary through a directed graph.
+    The method, trained through Conditional Random Fields (CRF), generates a lattice structure from a given sentence, connecting candidate morphemes in the dictionary through a directed graph.
     Subsequently, the optimal morphological analysis path is determined within this lattice structure~\cite{Kudo2004, NaSH2014, NaSH2018}.
-    The Viterbi algorithm~\cite{Viterbi1967} is employed in this process, minimizing the cost associated with each morpheme node and the sum of neighborhood costs for consecutive morphemes to identify the optimal path.
+    The Viterbi algorithm is employed in this process, minimizing the cost associated with each morpheme node and the sum of neighborhood costs for consecutive morphemes to identify the optimal path.
 
     In these dictionary-based morphological analysis methods, the primary errors stem from encountering new words absent in the dictionary within a sentence or when biases lead to the selection of an incorrect result during optimal path calculation.
     For instance, opting for one long morpheme over several short ones might be cost-effective but often results in an inaccurate analysis.
@@ -420,7 +420,16 @@
         \end{tabular*}
     \end{table*}
 
-    In the BERT-based re-ranking described in Section~\ref{sec:reranking-model}, we compared the performances using three pre-trained language models: KPF-BERT, ETRI-ELECTRA, and ETRI-RoBERTa, known for their proficiency in other Korean language understanding tasks.
+    In the BERT-based re-ranking process described in Section~\ref{sec:reranking-model}, we evaluated the performances using three distinct pre-trained language models renowned for their effectiveness in Korean language understanding tasks: KPF-BERT, ETRI-ELECTRA, and ETRI-RoBERTa.
+
+    \textbf{KPF-BERT}~\cite{KPF_BERT}: The Korea Press Foundation released KPF-BERT, a result of their `Language Information Resource Development Project for Media'.
+    KPF-BERT is a BERT model trained on BigKinds news data owned by the Foundation.
+    Unlike previous Korean BERT models primarily trained on Wikipedia and web documents, it was refined to optimize for news agencies and article utilization.
+    This was achieved by training on about 40 million selected articles from the 80 million BigKinds articles spanning from 2000 to August 2021 (Vocabulary size: 36,440).
+
+    \textbf{ETRI-ELECTRA}, \textbf{ETRI-RoBERTa}: ETRI developed and released a BERT model pre-trained on 23GB of Korean text~\cite{KorBERT}, and in 2021, an ELECTRA model trained on 31GB of Korean text incorporating Whole Word Masking technology (Vocabulary size: 33,806).
+    In 2022, they developed a RoBERTa model pre-trained on 36GB of Korean text with Byte-level BPE (Byte Pair Encoding) tokenization technology (Vocabulary size: 50,032).
+
     Each model uses a different form of vocabulary, so we had to vary the input accordingly.
     Preliminary tests showed that two-stage re-ranking using the same model or input did not improve performance, but using different models and input types did.
 
