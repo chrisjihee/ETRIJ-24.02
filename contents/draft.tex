@@ -96,7 +96,7 @@
     The main impetus behind our study is the recognition that the path minimizing costs for nodes and links may not always align with the optimal path.
     In response, we propose methods to address these challenges and improve the accuracy of the morphological analysis process.
 
-    \begin{figure*}[t]
+    \begin{figure*}[h]
         \centerline{\includegraphics[width=1.0\textwidth]{fig;block-v1}}
         \caption{Overall process flow of the proposed method}
         \label{fig:block}
@@ -158,6 +158,10 @@
 
     \section{Morphological Analysis Model}\label{sec:morphological-analysis-model}
 
+    Our proposed method for enhancing Korean morphological analysis involves integrating a Transformer-based re-ranking model into a dictionary-based morphological analysis system.
+    Our approach is depicted in Figure~\ref{fig:block}, which illustrates the overall process flow.
+    This section details the configuration and training of a dictionary-based morphological analysis system.
+
     \subsection{Korean Morphological Analysis Corpora}\label{subsec:korean-morphological-analysis-corpora}
 
     In this study, three major corpora were utilized to train and evaluate Korean morphological analysis models, each serving distinct research purposes and possessing unique characteristics:
@@ -188,8 +192,8 @@
     This algorithm utilizes a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as depicted in Figure~\ref{fig:sample}).
     Each aligned sentence containing a morpheme tag was then converted into a training sample tailored for dictionary-based morphological analysis.
 
-    \begin{figure*}[t]
-        \centerline{\includegraphics[width=0.8\textwidth]{fig;sample-v2}}
+    \begin{figure*}[h]
+        \centerline{\includegraphics[width=0.9\textwidth]{fig;sample-v3}}
         \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}
         \label{fig:sample}
     \end{figure*}
@@ -202,8 +206,8 @@
 
     \subsection{Lattice Construction and Decoding}\label{subsec:lattice-construction-and-decoding}
 
-    \begin{figure*}[t]
-        \centerline{\includegraphics[width=0.9\textwidth]{fig;lattice-v2}}
+    \begin{figure*}[h]
+        \centerline{\includegraphics[width=1.0\textwidth]{fig;lattice-v3}}
         \caption{Example of lattice construction and decoding result and secondary path generation}
         \label{fig:lattice}
     \end{figure*}
@@ -227,6 +231,12 @@
 
     \subsection{Secondary Path Generation}\label{subsec:secondary-path-generation}
 
+    \begin{figure*}[h]
+        \centerline{\includegraphics[width=0.9\textwidth]{fig;ranking-v2}}
+        \caption{Two-stage re-ranking model for Korean morphological analysis}
+        \label{fig:ranking}
+    \end{figure*}
+
     Before the re-ranking process initiates, multiple analyses, commonly referred to as N-best paths, of the input sentence are generated.
     This involves extracting the top N candidates from the lattice structure.
     In our study, a novel approach is introduced to produce secondary paths, as depicted in (3) of Figure~\ref{fig:lattice}, by selecting the second-best node instead of each best node constituting the path from the best-path result.
@@ -235,12 +245,6 @@
     In our preliminary test, the secondary paths, encompassing both optimal and suboptimal paths, demonstrated coverage of the majority of correct morphological analyses, as assessed through human evaluations (refer to Table~\ref{tab:maximum-performance}).
 
     \subsection{BERT-based Re-ranking}\label{subsec:bert-based-reranking}
-
-    \begin{figure*}[t]
-        \centerline{\includegraphics[width=0.9\textwidth]{fig;ranking-v1}}
-        \caption{Two-stage re-ranking model for Korean morphological analysis}
-        \label{fig:ranking}
-    \end{figure*}
 
     Bidirectional Encoder Representations from Transformers (BERT) models have transformed numerous natural language processing tasks by comprehending the contextual nuances in which words appear in text.
     In our study, we aim to harness the capabilities of BERT to reorder the generated secondary paths.
@@ -309,14 +313,6 @@
         \item Proper nouns can also be interpreted as common nouns depending on the point of view or perspective. Human annotators have slightly different standards, and thus, they were also evaluated without distinguishing the nouns.
     \end{itemize}
 
-    \subsection{Basic Performance}\label{subsec:basic-performance}
-
-    Initially, we conducted a comparison between the results of the dictionary-based morphological analysis model trained using the method outlined in Section~\ref{sec:morphological-analysis-model} and those of MeCab and syllable-based morphological analysis systems (refer to Table~\ref{tab:performance-without-reranking}).
-    The outcomes indicate that the implemented dictionary-based method outperforms the existing MeCab system.
-    However, it deviates from human evaluations due to the aforementioned limitations and does not attain the performance level of existing syllable-based morphological analysis systems.
-    Additionally, we observed poor compatibility between the Sejong corpus and other corpora.
-    The model trained on the Sejong corpus exhibits guaranteed performance when evaluated on the Sejong corpus, but some performance degradation occurs on other corpora.
-
     \begin{table*}[h]
         \caption{Performance comparison between morphological analysis systems without re-ranking}
         \label{tab:performance-without-reranking}
@@ -383,6 +379,14 @@
             Transformers          & \multicolumn{2}{l|}{version 4.31.0}                                                                     \\ \hline
         \end{tabular}
     \end{table}
+
+    \subsection{Basic Performance}\label{subsec:basic-performance}
+
+    Initially, we conducted a comparison between the results of the dictionary-based morphological analysis model trained using the method outlined in Section~\ref{sec:morphological-analysis-model} and those of MeCab and syllable-based morphological analysis systems (refer to Table~\ref{tab:performance-without-reranking}).
+    The outcomes indicate that the implemented dictionary-based method outperforms the existing MeCab system.
+    However, it deviates from human evaluations due to the aforementioned limitations and does not attain the performance level of existing syllable-based morphological analysis systems.
+    Additionally, we observed poor compatibility between the Sejong corpus and other corpora.
+    The model trained on the Sejong corpus exhibits guaranteed performance when evaluated on the Sejong corpus, but some performance degradation occurs on other corpora.
 
     \subsection{Re-ranking Performance}\label{subsec:reranking-performance}
 
