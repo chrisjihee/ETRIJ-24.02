@@ -96,6 +96,27 @@
     The main impetus behind our study is the recognition that the path minimizing costs for nodes and links may not always align with the optimal path.
     In response, we propose methods to address these challenges and improve the accuracy of the morphological analysis process.
 
+    \begin{figure*}[t]
+        \centerline{\includegraphics[width=1.0\textwidth]{fig;block-v1}}
+        \caption{Overall process flow of the proposed method}
+        \label{fig:block}
+    \end{figure*}
+
+    To pinpoint instances where a suboptimal solution may, in fact, be the best choice according to the best path calculation, we modified the best path calculation method to yield suboptimal analysis results and assessed their accuracy.
+    While various approaches exist for selecting the next-best path, we opted for the method of substituting a morpheme node on the optimal path with a lower-ranked node.
+    Table~\ref{tab:maximum-performance} illustrates the degree to which analysis performance can be enhanced by replacing the optimal path with a lower-ranked node.
+    This problem is analogous to the challenge of re-ranking search results in information retrieval~\cite{BaeYJ2021}, where the goal is to identify the correct answer among the generated suboptimal results.
+
+    In ~\cite{ChoiYS2018}, the N-best analysis results produced by the seq2seq model were re-ranked based on a convolutional neural network to enhance performance.
+    In our study, we employed re-ranking with two distinct BERT models, each of different types and forms, as proposed in ~\cite{Nogueira2019}.
+    Experimental results reveal that first-stage re-ranking improves performance by over 20\% compared to existing written and spoken models.
+    Furthermore, second-stage re-ranking, incorporating a different input type and a diverse pre-trained model, contributes to a performance improvement exceeding 30\% compared to existing written and spoken models.
+
+    While our introduced method led to further enhancement in the performance of the dictionary-based morphological analysis, it resulted in an overall increase in analysis time when configuring the morphological analysis system, including the re-ranking model itself.
+    However, a promising avenue for future exploration lies in utilizing the results of multiple re-ranked morpheme analyses to update the connection costs between morphemes in a dictionary, akin to the backpropagation process in a typical neural network.
+    It is anticipated that an improved morphological analysis system with updated connection costs can generate superior re-ranking candidates, potentially enabling iterative performance improvements.
+    While this study focused on two-stage re-ranking, further research is essential to fully explore this potential.
+
     \begin{table*}[h]
         \centering
         \footnotesize
@@ -119,21 +140,6 @@
         \end{tabular}
     \end{table*}
 
-    To pinpoint instances where a suboptimal solution may, in fact, be the best choice according to the best path calculation, we modified the best path calculation method to yield suboptimal analysis results and assessed their accuracy.
-    While various approaches exist for selecting the next-best path, we opted for the method of substituting a morpheme node on the optimal path with a lower-ranked node.
-    Table~\ref{tab:maximum-performance} illustrates the degree to which analysis performance can be enhanced by replacing the optimal path with a lower-ranked node.
-    This problem is analogous to the challenge of re-ranking search results in information retrieval~\cite{BaeYJ2021}, where the goal is to identify the correct answer among the generated suboptimal results.
-
-    In ~\cite{ChoiYS2018}, the N-best analysis results produced by the seq2seq model were re-ranked based on a convolutional neural network to enhance performance.
-    In our study, we employed re-ranking with two distinct BERT models, each of different types and forms, as proposed in ~\cite{Nogueira2019}.
-    Experimental results reveal that first-stage re-ranking improves performance by over 20\% compared to existing written and spoken models.
-    Furthermore, second-stage re-ranking, incorporating a different input type and a diverse pre-trained model, contributes to a performance improvement exceeding 30\% compared to existing written and spoken models.
-
-    While our introduced method led to further enhancement in the performance of the dictionary-based morphological analysis, it resulted in an overall increase in analysis time when configuring the morphological analysis system, including the re-ranking model itself.
-    However, a promising avenue for future exploration lies in utilizing the results of multiple re-ranked morpheme analyses to update the connection costs between morphemes in a dictionary, akin to the backpropagation process in a typical neural network.
-    It is anticipated that an improved morphological analysis system with updated connection costs can generate superior re-ranking candidates, potentially enabling iterative performance improvements.
-    While this study focused on two-stage re-ranking, further research is essential to fully explore this potential.
-
     The primary contributions of this study can be summarized as follows:
     \begin{enumerate}
         \item \textbf{Further improvement of dictionary-based morphological analysis method using suboptimal analysis results}: We investigate the potential for performance improvement by introducing a method to replace the optimal path with a suboptimal node. Additionally, we propose an effective approach to enhance the dictionary-based morphological analysis method through deep learning.
@@ -148,20 +154,6 @@
     Section ~\ref{sec:results} delves into the results of the performance improvement using morphological analysis and re-ranking models.
     Section ~\ref{sec:related-work} introduces previous research cases related to this study.
     Finally, in Section ~\ref{sec:conclusion}, we conclude the study, discuss its limitations, and suggest directions for future research.
-
-
-    \begin{figure*}[t]
-        \centerline{\includegraphics[width=0.75\textwidth]{fig1.1}}
-        \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}
-        \label{fig:sample}
-    \end{figure*}
-
-
-    \begin{figure*}[t]
-        \centerline{\includegraphics[width=0.9\textwidth]{fig2.1}}
-        \caption{Example of lattice construction and decoding result and secondary path generation}
-        \label{fig:lattice}
-    \end{figure*}
 
 
     \section{Morphological Analysis Model}\label{sec:morphological-analysis-model}
@@ -196,19 +188,25 @@
     This algorithm utilizes a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as depicted in Figure~\ref{fig:sample}).
     Each aligned sentence containing a morpheme tag was then converted into a training sample tailored for dictionary-based morphological analysis.
 
+    \begin{figure*}[t]
+        \centerline{\includegraphics[width=0.8\textwidth]{fig;sample-v2}}
+        \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}
+        \label{fig:sample}
+    \end{figure*}
+
     The resulting table in Figure~\ref{fig:sample} illustrates this process.
     Each row functions as a lexical unit, with the first four columns contributing to feature generation and the last four columns facilitating post-lemmatization.
     Leveraging the morphological corpus, a substantial number of training samples were generated following the process illustrated in Figure~\ref{fig:sample}.
     Except for the evaluation samples, the remaining sentences were employed to train the dictionary-based morphological analysis model using the CRF algorithm.
     The output of this training facilitated the calculation of costs associated with each morpheme node and the linking of two consecutive morphemes, enabling the determination of an optimal path using the Viterbi algorithm.
 
-    \begin{figure*}[t]
-        \centerline{\includegraphics[width=0.9\textwidth]{fig3.0}}
-        \caption{Two-stage re-ranking model for Korean morphological analysis}
-        \label{fig:ranking}
-    \end{figure*}
-
     \subsection{Lattice Construction and Decoding}\label{subsec:lattice-construction-and-decoding}
+
+    \begin{figure*}[t]
+        \centerline{\includegraphics[width=0.9\textwidth]{fig;lattice-v2}}
+        \caption{Example of lattice construction and decoding result and secondary path generation}
+        \label{fig:lattice}
+    \end{figure*}
 
     In Figure~\ref{fig:lattice}, a snapshot of the lattice structure crucial to morphological analysis is presented.
     (1) displays a portion of the lattice structure formed when inputting the example sentence from Figure~\ref{fig:sample}.
@@ -237,6 +235,12 @@
     In our preliminary test, the secondary paths, encompassing both optimal and suboptimal paths, demonstrated coverage of the majority of correct morphological analyses, as assessed through human evaluations (refer to Table~\ref{tab:maximum-performance}).
 
     \subsection{BERT-based Re-ranking}\label{subsec:bert-based-reranking}
+
+    \begin{figure*}[t]
+        \centerline{\includegraphics[width=0.9\textwidth]{fig;ranking-v1}}
+        \caption{Two-stage re-ranking model for Korean morphological analysis}
+        \label{fig:ranking}
+    \end{figure*}
 
     Bidirectional Encoder Representations from Transformers (BERT) models have transformed numerous natural language processing tasks by comprehending the contextual nuances in which words appear in text.
     In our study, we aim to harness the capabilities of BERT to reorder the generated secondary paths.
