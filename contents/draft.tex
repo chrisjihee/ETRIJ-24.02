@@ -246,7 +246,7 @@
 
     \subsection{BERT-based Re-ranking}\label{subsec:bert-based-reranking}
 
-    Bidirectional Encoder Representations from Transformers (BERT) models have transformed numerous natural language processing tasks by comprehending the contextual nuances in which words appear in text.
+    Bidirectional Encoder Representations from Transformers (BERT) models~\cite{Devlin2019} have transformed numerous natural language processing tasks by comprehending the contextual nuances in which words appear in text.
     In our study, we aim to harness the capabilities of BERT to reorder the generated secondary paths.
     We assigned scores related to morphological analysis performance to the generated secondary paths and utilized them for fine-tuning a pre-trained BERT model specifically designed for Korean, enriched with a substantial amount of Korean text.
     After preliminary testing with various scoring methods on a modest scale, we found that using scores based on the degree of error, rather than accuracy-based scores, effectively widens the gap between correct and incorrect answers.
