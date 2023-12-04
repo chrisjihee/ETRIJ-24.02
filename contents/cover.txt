@@ -1,0 +1,38 @@
+[Your Full Name]
+[Your Institutional Affiliation]
+[Your Address]
+[City, State, Zip Code]
+[Email Address]
+[Phone Number]
+[Date]
+
+[Editor’s Full Name]
+[Editor’s Title]
+[Journal Name]
+[Journal's Address]
+[City, State, Zip Code]
+
+Dear ETRI Journal Editorial Team,
+
+I am writing to submit our manuscript entitled “Improvement of Korean Morphological Analysis System Through Transformer-Based Re-Ranking” for consideration for publication in ETRI Journal. This study represents a significant leap in the field of Korean language processing, and we believe it aligns well with the scope and readership of your journal.
+
+Our research addresses the complexities of Korean morphological analysis by innovatively combining traditional dictionary-based methods with advanced deep learning models, specifically BERT-based re-ranking systems. This hybrid approach not only acknowledges the intricacies inherent in the Korean language but also harnesses the power of modern machine learning to achieve unprecedented levels of accuracy in morphological analysis.
+
+The key contributions of our work include:
+* A novel method for improving dictionary-based morphological analysis using suboptimal analysis results.
+* Introduction of a two-stage re-ranking model that significantly enhances the performance of the morphological analysis.
+* A potential pathway for continuous improvement in morphological analysis through iterative learning.
+* Given the growing interest in natural language processing and the specific challenges associated with agglutinative languages like Korean, our study offers valuable insights and practical solutions that we believe will be of great interest to your readership.
+
+We have chosen ETRI Journal for submission due to its reputation for publishing cutting-edge research in computational linguistics and its commitment to fostering innovative methodologies in language processing. Our manuscript has not been published elsewhere nor is it under consideration by any other journal.
+
+We appreciate your consideration of our manuscript for publication in ETRI Journal and eagerly await your response. Please do not hesitate to contact me should you require any further information or clarification regarding our submission.
+
+Thank you for your time and consideration.
+
+Sincerely,
+
+Jihee Ryu
+Senior Researcher
+Electronics and Telecommunications Research Institute
+chrisjihee@etri.re.kr
