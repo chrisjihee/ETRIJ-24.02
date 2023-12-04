@@ -240,6 +240,10 @@ excluded those with annotation errors or other issues. Notably, a
 substantial occurrence of duplicate sentences was observed, particularly
 in spoken language datasets.
 
+::: figure*
+![image](fig;sample-v3){width="90%"}
+:::
+
 ## Training Example Transformation {#subsec:training-example-transformation}
 
 To effectively train a dictionary-based morpheme analysis model, the
@@ -249,6 +253,10 @@ surface form. This transformation relies on string alignment, addressing
 discrepancies between lemma forms and surface forms in the Korean
 morphological analysis corpus.
 
+::: figure*
+![image](fig;lattice-v3){width="100%"}
+:::
+
 In this study, we employed the Smith-Waterman algorithm for string
 alignment. This algorithm utilizes a scoring matrix based on the
 similarity of the grapheme unit of Korean letters for each word pair (as
@@ -256,10 +264,6 @@ depicted in Figure [\[fig:sample\]](#fig:sample){reference-type="ref"
 reference="fig:sample"}). Each aligned sentence containing a morpheme
 tag was then converted into a training sample tailored for
 dictionary-based morphological analysis.
-
-::: figure*
-![image](fig;sample-v3){width="90%"}
-:::
 
 The resulting table in
 Figure [\[fig:sample\]](#fig:sample){reference-type="ref"
@@ -277,10 +281,6 @@ morpheme node and the linking of two consecutive morphemes, enabling the
 determination of an optimal path using the Viterbi algorithm.
 
 ## Lattice Construction and Decoding {#subsec:lattice-construction-and-decoding}
-
-::: figure*
-![image](fig;lattice-v3){width="100%"}
-:::
 
 In Figure [\[fig:lattice\]](#fig:lattice){reference-type="ref"
 reference="fig:lattice"}, a snapshot of the lattice structure crucial to
@@ -302,6 +302,10 @@ crucial for handling the complex morphological structures of the Korean
 language, as the transformer-based models provide a robust understanding
 of context and linguistic nuances.
 
+::: figure*
+![image](fig;ranking-v2){width="90%"}
+:::
+
 # Re-ranking Model {#sec:reranking-model}
 
 While dictionary-based morphological analysis provides substantial
@@ -314,10 +318,6 @@ them using a new set of criteria or models. Here, the BERT-based models
 play a pivotal role.
 
 ## Secondary Path Generation {#subsec:secondary-path-generation}
-
-::: figure*
-![image](fig;ranking-v2){width="90%"}
-:::
 
 Before the re-ranking process initiates, multiple analyses, commonly
 referred to as N-best paths, of the input sentence are generated. This
