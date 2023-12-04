@@ -217,17 +217,19 @@
     (2) illustrates the optimal path determined through the Viterbi algorithm.
 
     However, it's essential to note that the path predicted by the trained model might differ from the correct solution crafted by humans.
-    The nodes marked with stars in (1) represent correct nodes.
+    The nodes with bold-faced and underlined text in (1) represent the correct nodes.
     The upper-left number of each node indicates the ranking of accessible nodes at each decoding point.
     Choices made at certain moments deviate from the correct solution.
-    To enhance analytical performance, mechanisms must be developed to correct these discrepancies.
+    To enhance analytical performance, we have developed mechanisms that leverage deep learning, specifically BERT-based models, to correct these discrepancies.
+    This integration is crucial for handling the complex morphological structures of the Korean language, as the transformer-based models provide a robust understanding of context and linguistic nuances.
 
 
     \section{Re-ranking Model}\label{sec:reranking-model}
 
     While dictionary-based morphological analysis provides substantial advancements, it is not immune to instances where its optimal paths deviate from the correct solutions perceived by humans.
-    This deviation emphasizes the necessity for a model that reexamines these initial results and adjusts them to enhance accuracy.
-    This approach, known as re-ranking, entails producing multiple analyses of an input and subsequently rearranging them using a new set of criteria or models, thereby elevating the overall quality of the results.
+    To address this, we introduce a re-ranking model that revisits these initial results and adjusts them to enhance accuracy.
+    This re-ranking approach involves generating multiple analyses of an input and subsequently rearranging them using a new set of criteria or models.
+    Here, the BERT-based models play a pivotal role.
 
     \subsection{Secondary Path Generation}\label{subsec:secondary-path-generation}
 
