@@ -296,22 +296,35 @@
 
     \subsection{Evaluation Metrics}\label{subsec:evaluation-metrics}
 
-    To assess the accuracy of the morphological analysis model, the correctness of the N-best path, and the ranking accuracy of the re-ranking model, we employed eojeol accuracy and morpheme F1 scores as evaluation metrics.
-    To validate the correctness of morphological analysis results, we measured the degree of agreement with human annotations on the corpus.
-    However, due to slight differences in criteria and annotation styles among annotators labeling various corpora, including the comparison with the MeCab-ko system, the following adjustments were made:
-    \begin{itemize}
-        \item Sentences containing unanalyzable tags (NF, NA, and NV) were excluded from both training and evaluation.
-        \item As for the tagsets, we excluded three unanalyzable tags from the 45 Sejong tagsets and used 42 tagsets.
-        \item Each tag output by the MeCab-ko system was converted to the corresponding tag in the Sejong tagset.
-        \item Chinese characters were converted to Chinese character tags (SH) even if they were semantically used as nouns, and consecutive Chinese characters were converted to a single morpheme.
-        \item Similarly, symbol, numeral, ending, and postposition in the same tag were converted to a single morpheme, and decimal expressions were treated as a single morpheme, including the midpoint and the numbers before and after.
-        \item If the first lemma letter of the ending is `[eo]', `[yeo]', or `[ah]', it is unified as `[eo]', and if it is `[eot]', `[yeot]', or `[ass]', it is unified as `[eot]'. %`어[eo]', `여[yeo]', or `아[ah]' % `었[eot]', `였[yeot]', or `았[ass]'
-        \item Root tags (XR) used alone without affixes were replaced with common nouns (NNG) because they are mainly used in the Sejong corpus only.
-        \item Connective endings (EC) and sentence-closing endings (EF) are not clearly defined in the tagging guidelines as mentioned in ~\cite{KimIH2010}, and there are cases where they are used interchangeably in the corpus, so we evaluated them without distinguishing them.
-        \item The distinction between `[geot]' and `[geo]' is unclear in the tagging guidelines, and there are cases where they are used interchangeably in the corpus, hence, we did not distinguish between them. %`것[geot]' and `거[geo]'
-        \item Compound words can be interpreted as a single morpheme or as a combination of two or more morphemes or affixes; therefore, we evaluated them without distinguishing between these interpretations.
-        \item Proper nouns can also be interpreted as common nouns depending on the point of view or perspective. Human annotators have slightly different standards, and thus, they were also evaluated without distinguishing the nouns.
-    \end{itemize}
+    To assess the accuracy of the morphological analysis model, the correctness of the N-best path, and the ranking accuracy of the re-ranking model, we employed eojeol accuracy and morpheme F1 score as evaluation metrics.
+
+    Eojeol accuracy measures how accurately a model identifies and processes each eojeol (a Korean linguistic unit similar to a word in English) in a sentence.
+    This can be calculated as the ratio of correctly identified eojeols to the total number of eojeols in the test dataset:
+    \vspace{1mm}
+    \[
+        \footnotesize
+        \text{Eojeol Accuracy} = \frac{\text{Number of Correctly Identified Eojeols}}{\text{Total Number of Eojeols in the Test Set}}
+    \]
+    \vspace{0.5mm}
+
+    Morpheme F1 score is used to evaluate a model's performance in identifying and tagging individual morphemes within an eojeol.
+    It's a harmonic mean of precision and recall, where precision is the proportion of correctly identified morphemes among all identified morphemes, and recall is the proportion of correctly identified morphemes among all actual morphemes:
+    \vspace{1mm}
+    \[
+        \footnotesize
+        \text{Precision} = \frac{\text{True Positive Morphemes}}{\text{True Positive Morphemes + False Positive Morphemes}}
+    \]
+    \vspace{1mm}
+    \[
+        \footnotesize
+        \text{Recall} = \frac{\text{True Positive Morphemes}}{\text{True Positive Morphemes + False Negative Morphemes}}
+    \]
+    \vspace{1mm}
+    \[
+        \footnotesize
+        \text{Morpheme F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+    \]
+    \vspace{0.5mm}
 
     \begin{table*}[h]
         \caption{Performance comparison between morphological analysis systems without re-ranking}
@@ -356,6 +369,22 @@
         \end{tabular*}
     \end{table*}
 
+    To validate the correctness of morphological analysis results, we measured the degree of agreement with human annotations on the corpus.
+    However, due to slight differences in criteria and annotation styles among annotators labeling various corpora, including the comparison with the MeCab-ko system, the following adjustments were made:
+    \begin{itemize}
+        \item Sentences containing unanalyzable tags (NF, NA, and NV) were excluded from both training and evaluation.
+        \item As for the tagsets, we excluded three unanalyzable tags from the 45 Sejong tagsets and used 42 tagsets.
+        \item Each tag output by the MeCab-ko system was converted to the corresponding tag in the Sejong tagset.
+        \item Chinese characters were converted to Chinese character tags (SH) even if they were semantically used as nouns, and consecutive Chinese characters were converted to a single morpheme.
+        \item Similarly, symbol, numeral, ending, and postposition in the same tag were converted to a single morpheme, and decimal expressions were treated as a single morpheme, including the midpoint and the numbers before and after.
+        \item If the first lemma letter of the ending is `[eo]', `[yeo]', or `[ah]', it is unified as `[eo]', and if it is `[eot]', `[yeot]', or `[ass]', it is unified as `[eot]'. %`어[eo]', `여[yeo]', or `아[ah]' % `었[eot]', `였[yeot]', or `았[ass]'
+        \item Root tags (XR) used alone without affixes were replaced with common nouns (NNG) because they are mainly used in the Sejong corpus only.
+        \item Connective endings (EC) and sentence-closing endings (EF) are not clearly defined in the tagging guidelines as mentioned in ~\cite{KimIH2010}, and there are cases where they are used interchangeably in the corpus, so we evaluated them without distinguishing them.
+        \item The distinction between `[geot]' and `[geo]' is unclear in the tagging guidelines, and there are cases where they are used interchangeably in the corpus, hence, we did not distinguish between them. %`것[geot]' and `거[geo]'
+        \item Compound words can be interpreted as a single morpheme or as a combination of two or more morphemes or affixes; therefore, we evaluated them without distinguishing between these interpretations.
+        \item Proper nouns can also be interpreted as common nouns depending on the point of view or perspective. Human annotators have slightly different standards, and thus, they were also evaluated without distinguishing the nouns.
+    \end{itemize}
+
     \begin{table}[h]
         \centering
         \footnotesize
@@ -388,13 +417,6 @@
     Additionally, we observed poor compatibility between the Sejong corpus and other corpora.
     The model trained on the Sejong corpus exhibits guaranteed performance when evaluated on the Sejong corpus, but some performance degradation occurs on other corpora.
 
-    \subsection{Re-ranking Performance}\label{subsec:reranking-performance}
-
-    With the integration of the BERT-based re-ranking model, we observed substantial performance enhancement.
-    Table~\ref{tab:performance-with-reranking} illustrates that the re-ranking model identified a better path in a significant proportion of cases.
-    The first-stage re-ranking exhibited a performance improvement of over 20\% compared to traditional models.
-    Subsequent re-ranking, leveraging a distinct type of input and a different pre-trained model, further augmented the performance by more than 30\%.
-
     \begin{table*}[]
         \caption{Comparison of performance differences with previous studies}
         \label{tab:differences-with-previous-studies}
@@ -419,6 +441,13 @@
             \bottomrule
         \end{tabular*}
     \end{table*}
+
+    \subsection{Re-ranking Performance}\label{subsec:reranking-performance}
+
+    With the integration of the BERT-based re-ranking model, we observed substantial performance enhancement.
+    Table~\ref{tab:performance-with-reranking} illustrates that the re-ranking model identified a better path in a significant proportion of cases.
+    The first-stage re-ranking exhibited a performance improvement of over 20\% compared to traditional models.
+    Subsequent re-ranking, leveraging a distinct type of input and a different pre-trained model, further augmented the performance by more than 30\%.
 
     In the BERT-based re-ranking process described in Section~\ref{sec:reranking-model}, we evaluated the performances using three distinct pre-trained language models renowned for their effectiveness in Korean language understanding tasks: KPF-BERT, ETRI-ELECTRA, and ETRI-RoBERTa.
 
