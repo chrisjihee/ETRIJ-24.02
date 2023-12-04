@@ -480,6 +480,31 @@ $$\footnotesize
 $$\footnotesize
         \text{Morpheme F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
 
+In our analysis, along with conventional metrics like eojeol accuracy
+and morpheme F1 score, we have introduced the Error Reduction Rate (ERR)
+as an additional metric to quantify performance improvements. The ERR is
+especially useful in contexts where differences in raw accuracy between
+models are minimal. This metric provides a more detailed understanding
+of the improvements by focusing on the reduction in the proportion of
+errors. This is particularly pertinent when comparing our
+dictionary-based model to the syllable-based system, which is already
+highly tuned. The Error Reduction Rate (ERR) is calculated using the
+following formula: $$\footnotesize
+        \text{ERR} = \left( \frac{\text{Error Rate}_{\text{baseline}} - \text{Error Rate}_{\text{improved}}}{\text{Error Rate}_{\text{baseline}}} \right) \times 100\%$$
+
+In this context, the error rate is defined as
+$1.0 - \text{Eojeol Accuracy}$, allowing us to focus specifically on the
+inaccuracies in eojeol recognition.
+
+By incorporating ERR into our evaluation, we aim to provide a more
+nuanced understanding of the improvements made by our proposed method.
+In some cases, the raw accuracy figures may be close, making it
+challenging to discern the significance of improvements. ERR helps to
+highlight the relative improvement in terms of error reduction, offering
+a clearer comparison between the models and underscoring the
+advancements of our approach, even in the context of marginal gains in
+accuracy.
+
 ::: table*
   ---------------------------- ----------------------- ----------- ------------------- ----------- ----------------------------- -----------
              System                    Sejong                       UCorpus (written)               Everyone's Corpus (written)  
@@ -497,15 +522,21 @@ $$\footnotesize
 :::
 
 ::: table*
-  ----------------------------------- ----------- ----------- ----------------- ----------- ---------------- -----------
-                System                  Sejong                 UC+EC (written)               UC+EC (spoken)  
-                                        eojeol     morpheme        eojeol        morpheme        eojeol       morpheme
-               MeCab-ko                  89.17       93.06          87.83          92.19         84.62          89.60
-            Syllable-based               91.95       95.16          97.42          98.39         95.53        **97.08**
-   Dictionary-based (without rerank)     95.23       97.08          96.59          97.94         93.49          95.73
-   Dictionary-based (1-stage rerank)     96.63       97.84          97.50          98.44         94.77          96.62
-   Dictionary-based (2-stage rerank)   **96.87**   **98.01**      **97.75**      **98.60**     **95.56**      **97.08**
-  ----------------------------------- ----------- ----------- ----------------- ----------- ---------------- -----------
+  ----------------------------------- ---------------------- ----------- ---------------------- ----------- ---------------------- -----------
+                System                        Sejong                        UC+EC (written)                     UC+EC (spoken)     
+                                              eojeol          morpheme           eojeol          morpheme           eojeol          morpheme
+               MeCab-ko                       89.17             93.06            87.83             92.19            84.62             89.60
+            Syllable-based                    91.95             95.16            97.42             98.39            95.53           **97.08**
+   Dictionary-based (without rerank)     95.23 \[+0.0%\]        97.08       96.59 \[+0.0%\]        97.94       93.49 \[+0.0%\]        95.73
+   Dictionary-based (1-stage rerank)     96.63 \[+29.2%\]       97.84       97.50 \[+26.7%\]       98.44       94.77 \[+19.6%\]       96.62
+   Dictionary-based (2-stage rerank)   **96.87** \[+34.4%\]   **98.01**   **97.75** \[+34.1%\]   **98.60**   **95.56** \[+31.8%\]   **97.08**
+  ----------------------------------- ---------------------- ----------- ---------------------- ----------- ---------------------- -----------
+
+::: tablenotes
+\* The numbers in parentheses represent the Error Reduction Rate (ERR),
+calculated with respect to the "Dictionary-based (without rerank)" as
+the baseline.
+:::
 :::
 
 To validate the correctness of morphological analysis results, we
@@ -581,22 +612,51 @@ the MeCab-ko system, the following adjustments were made:
 
 ## Basic Performance {#subsec:basic-performance}
 
-Initially, we conducted a comparison between the results of the
-dictionary-based morphological analysis model trained using the method
-outlined in
+In our preliminary analysis, we compared the outcomes of our newly
+developed dictionary-based morphological analysis model, as detailed in
 Section [2](#sec:morphological-analysis-model){reference-type="ref"
-reference="sec:morphological-analysis-model"} and those of MeCab and
-syllable-based morphological analysis systems (refer to
+reference="sec:morphological-analysis-model"}, against the existing
+MeCab system and the syllable-based morphological analysis system. The
+findings, presented in
 Table [\[tab:performance-without-reranking\]](#tab:performance-without-reranking){reference-type="ref"
-reference="tab:performance-without-reranking"}). The outcomes indicate
-that the implemented dictionary-based method outperforms the existing
-MeCab system. However, it deviates from human evaluations due to the
-aforementioned limitations and does not attain the performance level of
-existing syllable-based morphological analysis systems. Additionally, we
-observed poor compatibility between the Sejong corpus and other corpora.
-The model trained on the Sejong corpus exhibits guaranteed performance
-when evaluated on the Sejong corpus, but some performance degradation
-occurs on other corpora.
+reference="tab:performance-without-reranking"}, demonstrate that our
+dictionary-based model surpasses the MeCab system in terms of accuracy.
+This indicates the effectiveness of our approach, which relies solely on
+a corpus-driven methodology without external dependencies like
+dictionaries or rule sets.
+
+However, when it comes to the syllable-based system, our model did not
+achieve comparable performance. The syllable-based system, as outlined
+in the research by Lee et al. [@LeeCH2016], has been substantially
+enhanced through the use of a pre-analyzed dictionary. This integration
+has significantly elevated its performance, allowing for more accurate
+handling of various linguistic elements. The system's ability to excel
+in different evaluation sets can be attributed to this comprehensive
+approach that combines extensive training corpora with meticulously
+crafted dictionaries and rules.
+
+Contrastingly, our dictionary-based system, being a recent innovation,
+does not utilize external resources such as pre-defined dictionaries or
+sets of linguistic rules. While this approach offers benefits like
+simplicity and potential adaptability, it also presents limitations in
+capturing the complexities and nuances of natural language that are
+efficiently managed by the syllable-based system.
+
+Additionally, our model exhibited compatibility issues between different
+corpora. The model trained on the Sejong corpus performed well when
+evaluated on the same corpus, but it showed a decline in performance
+when applied to other datasets. This points to the need for a more
+diverse and comprehensive training dataset to improve the model's
+generalizability.
+
+In summary, while our dictionary-based model marks an advancement in
+morphological analysis, the superior performance of the syllable-based
+system, especially as demonstrated in the study by Lee et
+al. [@LeeCH2016], highlights the effectiveness of combining training
+corpora with additional linguistic resources. Future enhancements to our
+model could involve integrating aspects of the syllable-based approach,
+such as incorporating rule-based methods or additional dictionaries, to
+further refine its performance.
 
 ::: table*
   ----------------------------------- -------------------------------- ---------------------------- ------------- -----------
@@ -675,10 +735,10 @@ Table [\[tab:performance-with-reranking\]](#tab:performance-with-reranking){ref
 reference="tab:performance-with-reranking"} demonstrates that
 incorporating the re-ranking model significantly improves performance
 compared to no re-ranking. The error reduction rate (ERR) of the
-performance change from the existing model on eojeol accuracy is 29%,
-27%, and 20% for the Sejong corpus, combined written corpus, and
-combined spoken corpus, respectively, with the first round of
-re-ranking. The second round of re-ranking further improves the
+performance change from the existing dictionary-based model on eojeol
+accuracy is 29%, 27%, and 20% for the Sejong corpus, combined written
+corpus, and combined spoken corpus, respectively, with the first round
+of re-ranking. The second round of re-ranking further improves the
 performance by increasing the rate to 34%, 34%, and 32%, respectively.
 These performance improvements underscore the superiority of the
 dictionary-based morphological analysis model over traditional
