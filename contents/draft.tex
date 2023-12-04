@@ -21,13 +21,17 @@
     \presentaddress{This is sample for present address text this is sample for present address text}
 
     \abstract[Abstract]{
-        This study presents a novel approach to Korean morphological analysis by integrating a Transformer-based re-ranking method into a dictionary-based morphological analysis system.
-        A significant advancement in this research is the effective utilization of the BERT model's re-ranking, which has brought innovations in the broader field of natural language processing.
-        This enhancement is achieved through a two-stage re-ranking process: the first stage involves fine-tuning a BERT model using only the results of morphological analysis, and the second stage fine-tunes a different type of BERT model using the re-ranked results along with the original text.
-        This method effectively improves the performance of dictionary-based morphological analysis, which previously lagged behind syllable-based analysis in terms of accuracy.
-        The integration of deep learning with traditional morphological analysis represents a significant advancement in providing more powerful and efficient tools for language processing tasks.
-        According to our results, there is a substantial improvement in eojeol accuracy and morpheme F1 scores compared to previous methods.
-        This study not only sets a new standard in Korean language processing but also paves the way for further advancements in applying deep learning to linguistic analysis.
+        This study introduces a novel approach in Korean morphological analysis, merging dictionary-based techniques with Transformer-based deep learning models.
+        A significant aspect of this research is the use of a BERT-based re-ranking system, which substantially enhances the accuracy of dictionary-based morphological analysis.
+        The methodology involves generating multiple suboptimal paths for morphological analysis and then employing BERT models for their re-ranking, capitalizing on their advanced language context comprehension.
+
+        The results showcase a remarkable enhancement in morphological analysis performance, with the first-stage re-ranking achieving over a 20\% improvement in ERR compared to existing models.
+        The second-stage re-ranking, utilizing a different BERT variant, further increases this improvement in ERR to over 30\%.
+        These figures indicate a significant stride forward in accuracy, demonstrating the efficacy of combining traditional dictionary-based analysis with contemporary deep learning techniques.
+
+        This study paves the way for future advancements in Korean language processing.
+        It suggests exploring more refined integrations of dictionary and deep learning approaches and utilizing probabilistic models to further enhance morphological analysis.
+        The success of this hybrid approach sets a new benchmark in the field and offers valuable insights for tackling similar challenges in other language processing applications.
     }
     \keywords{Korean morphological analysis, natural language understanding, deep learning, pretrained transformer encoder, re-ranking}
 
@@ -183,20 +187,26 @@
     In the process of converting training data, we initially removed duplicate sentences and excluded those with annotation errors or other issues.
     Notably, a substantial occurrence of duplicate sentences was observed, particularly in spoken language datasets.
 
-    \subsection{Training Example Transformation}\label{subsec:training-example-transformation}
-
-    To effectively train a dictionary-based morpheme analysis model, the morpheme-tagged corpus, typically represented in lemma form, needs transformation to include boundary information between morphemes in its surface form.
-    This transformation relies on string alignment, addressing discrepancies between lemma forms and surface forms in the Korean morphological analysis corpus.
-
-    In this study, we employed the Smith-Waterman algorithm for string alignment.
-    This algorithm utilizes a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as depicted in Figure~\ref{fig:sample}).
-    Each aligned sentence containing a morpheme tag was then converted into a training sample tailored for dictionary-based morphological analysis.
-
     \begin{figure*}[ht]
         \centerline{\includegraphics[width=0.9\textwidth]{fig;sample-v3}}
         \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}
         \label{fig:sample}
     \end{figure*}
+
+    \subsection{Training Example Transformation}\label{subsec:training-example-transformation}
+
+    To effectively train a dictionary-based morpheme analysis model, the morpheme-tagged corpus, typically represented in lemma form, needs transformation to include boundary information between morphemes in its surface form.
+    This transformation relies on string alignment, addressing discrepancies between lemma forms and surface forms in the Korean morphological analysis corpus.
+
+    \begin{figure*}[ht]
+        \centerline{\includegraphics[width=1.0\textwidth]{fig;lattice-v3}}
+        \caption{Example of lattice construction and decoding result and secondary path generation}
+        \label{fig:lattice}
+    \end{figure*}
+
+    In this study, we employed the Smith-Waterman algorithm for string alignment.
+    This algorithm utilizes a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as depicted in Figure~\ref{fig:sample}).
+    Each aligned sentence containing a morpheme tag was then converted into a training sample tailored for dictionary-based morphological analysis.
 
     The resulting table in Figure~\ref{fig:sample} illustrates this process.
     Each row functions as a lexical unit, with the first four columns contributing to feature generation and the last four columns facilitating post-lemmatization.
@@ -205,12 +215,6 @@
     The output of this training facilitated the calculation of costs associated with each morpheme node and the linking of two consecutive morphemes, enabling the determination of an optimal path using the Viterbi algorithm.
 
     \subsection{Lattice Construction and Decoding}\label{subsec:lattice-construction-and-decoding}
-
-    \begin{figure*}[ht]
-        \centerline{\includegraphics[width=1.0\textwidth]{fig;lattice-v3}}
-        \caption{Example of lattice construction and decoding result and secondary path generation}
-        \label{fig:lattice}
-    \end{figure*}
 
     In Figure~\ref{fig:lattice}, a snapshot of the lattice structure crucial to morphological analysis is presented.
     (1) displays a portion of the lattice structure formed when inputting the example sentence from Figure~\ref{fig:sample}.
@@ -223,6 +227,12 @@
     To enhance analytical performance, we have developed mechanisms that leverage deep learning, specifically BERT-based models, to correct these discrepancies.
     This integration is crucial for handling the complex morphological structures of the Korean language, as the transformer-based models provide a robust understanding of context and linguistic nuances.
 
+    \begin{figure*}[ht]
+        \centerline{\includegraphics[width=0.9\textwidth]{fig;ranking-v2}}
+        \caption{Two-stage re-ranking model for Korean morphological analysis}
+        \label{fig:ranking}
+    \end{figure*}
+
 
     \section{Re-ranking Model}\label{sec:reranking-model}
 
@@ -232,12 +242,6 @@
     Here, the BERT-based models play a pivotal role.
 
     \subsection{Secondary Path Generation}\label{subsec:secondary-path-generation}
-
-    \begin{figure*}[ht]
-        \centerline{\includegraphics[width=0.9\textwidth]{fig;ranking-v2}}
-        \caption{Two-stage re-ranking model for Korean morphological analysis}
-        \label{fig:ranking}
-    \end{figure*}
 
     Before the re-ranking process initiates, multiple analyses, commonly referred to as N-best paths, of the input sentence are generated.
     This involves extracting the top N candidates from the lattice structure.
