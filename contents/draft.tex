@@ -475,12 +475,20 @@
 
     \subsection{Comparison to Other Studies}\label{subsec:comparison-to-other-studies}
 
-    The proposed transformer-based re-ranking technique consistently improved the results of existing morphological analysis models, showcasing its potential to enhance outcomes in the field of Korean morphological analysis.
+    The proposed transformer-based re-ranking technique consistently improved the results of existing morphological analysis models, showcasing its potential to enhance outcomes in the field of Korean morphological analysis (refer to Table~\ref{tab:differences-with-previous-studies}).
     These findings suggest that it opens up new possibilities by further refining the results of traditional machine-learning models.
     In a comparative analysis with previous studies, particularly those predominantly focused on the Sejong corpus, we observed performance improvements.
     While direct comparisons are challenging due to slight differences in implementation conditions and evaluation criteria, the proposed dictionary-based morphological analysis model, when coupled with a re-ranking model, achieved a performance comparable to existing research, though not at the latest research results.
 
     It's worth noting that the entire morphological analysis model, inclusive of the re-ranking model, may not be optimal for real-time processing.
+    This is attributed to several factors that inherently increase the complexity and computational demand of the system.
+    The inclusion of two-stage re-ranking model adds another layer of complexity.
+    The re-ranking process requires the evaluation of all generated secondary paths per each sentence by the morphological analysis to determine the most plausible results.
+    This step involves significant computational resources and require substantial processing power to make predictions.
+    Furthermore, real-time processing demands instantaneous responses, typically within milliseconds, to ensure a seamless user experience.
+    The latency introduced by the detailed analysis and re-ranking stages may exceed these latency requirements, leading to delays that are perceptible to the end-user.
+    When operating in real-time, the system must handle a continuous stream of data, necessitating a high-throughput capability that can accommodate the swift processing of information without bottlenecks.
+    The current model is not be designed to efficiently manage such high volumes of data at the speed required for real-time interactions.
     However, by incorporating cases where ranks are altered through the re-ranking model as feedback to the dictionary-based morphological analysis model, it becomes plausible to achieve near-improved morphological analysis performance.
     The enhanced dictionary-based morphological analysis model can then serve as input to the re-ranking model, fostering iterative improvement in the overall morphological analysis model through this feedback loop.
 
