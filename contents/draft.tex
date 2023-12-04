@@ -96,7 +96,7 @@
     The main impetus behind our study is the recognition that the path minimizing costs for nodes and links may not always align with the optimal path.
     In response, we propose methods to address these challenges and improve the accuracy of the morphological analysis process.
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centerline{\includegraphics[width=1.0\textwidth]{fig;block-v1}}
         \caption{Overall process flow of the proposed method}
         \label{fig:block}
@@ -117,7 +117,7 @@
     It is anticipated that an improved morphological analysis system with updated connection costs can generate superior re-ranking candidates, potentially enabling iterative performance improvements.
     While this study focused on two-stage re-ranking, further research is essential to fully explore this potential.
 
-    \begin{table*}[h]
+    \begin{table*}[ht]
         \centering
         \footnotesize
         \caption{Statistics for the Korean morphological corpus as a whole and for training/test data}
@@ -192,7 +192,7 @@
     This algorithm utilizes a scoring matrix based on the similarity of the grapheme unit of Korean letters for each word pair (as depicted in Figure~\ref{fig:sample}).
     Each aligned sentence containing a morpheme tag was then converted into a training sample tailored for dictionary-based morphological analysis.
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centerline{\includegraphics[width=0.9\textwidth]{fig;sample-v3}}
         \caption{Transformation of a single sentence in the Korean morpheme-tagged corpus into a single training sample}
         \label{fig:sample}
@@ -206,7 +206,7 @@
 
     \subsection{Lattice Construction and Decoding}\label{subsec:lattice-construction-and-decoding}
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centerline{\includegraphics[width=1.0\textwidth]{fig;lattice-v3}}
         \caption{Example of lattice construction and decoding result and secondary path generation}
         \label{fig:lattice}
@@ -231,7 +231,7 @@
 
     \subsection{Secondary Path Generation}\label{subsec:secondary-path-generation}
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centerline{\includegraphics[width=0.9\textwidth]{fig;ranking-v2}}
         \caption{Two-stage re-ranking model for Korean morphological analysis}
         \label{fig:ranking}
@@ -326,7 +326,7 @@
     \]
     \vspace{0.5mm}
 
-    \begin{table*}[h]
+    \begin{table*}[ht]
         \caption{Performance comparison between morphological analysis systems without re-ranking}
         \label{tab:performance-without-reranking}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}c|cccccc@{\extracolsep\fill}}
@@ -351,7 +351,7 @@
         \end{tabular*}
     \end{table*}
 
-    \begin{table*}[h]
+    \begin{table*}[ht]
         \caption{Performance comparison between morphological analysis systems with Two-stage re-ranking}
         \label{tab:performance-with-reranking}
         \begin{tabular*}{500pt}{@{\extracolsep\fill}c|cccccc@{\extracolsep\fill}}
@@ -385,7 +385,7 @@
         \item Proper nouns can also be interpreted as common nouns depending on the point of view or perspective. Human annotators have slightly different standards, and thus, they were also evaluated without distinguishing the nouns.
     \end{itemize}
 
-    \begin{table}[h]
+    \begin{table}[ht]
         \centering
         \footnotesize
         \caption{Training Options and Software Information for Re-ranking Model}
@@ -492,7 +492,7 @@
     Table~\ref{tab:overview-of-recent-korean-morphological-analysis-methods} offers a succinct comparison of the methodologies and key concepts from relevant studies, both directly and indirectly related to this research.
     This table provides a brief overview of the various approaches to morphological analysis.
 
-    \begin{table}[h!]
+    \begin{table}[ht]
         \centering
         \footnotesize % OR use \tiny, \small, \footnotesize, \scriptsize
         \caption{Overview of Recent Korean Morphological Analysis Methods}
