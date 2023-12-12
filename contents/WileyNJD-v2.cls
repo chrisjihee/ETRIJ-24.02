@@ -1779,7 +1779,7 @@ Volume\ \@jvol, Article ID\ \@artid, \thepage~pages\par%
 \newcommand{\corresinfo}{{\corresfont\baselineskip11pt\textbf{Correspondence}\par \@corresinfo\par}}%
 
 \gdef\@presentaddress{}%
-\def\presentaddress#1{\gdef\@presentaddress{\hsize=\textwidth\corresfont\baselineskip11pt\textbf{Present Address}\par #1}}%
+\def\presentaddress#1{\gdef\@presentaddress{\hsize=\textwidth\corresfont\baselineskip11pt\textbf{Funding information}\par #1}}%
 
 %
 \def\received#1{\gdef\@received{Received #1;}}\gdef\@received{Added at production}%
