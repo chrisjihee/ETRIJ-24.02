@@ -7,7 +7,7 @@
 \raggedbottom
 
 \begin{document}
-    \title{Transformer-Based Reranking for Improving Korean Morphological Analysis System}
+    \title{Transformer-Based Reranking \\for Improving Korean Morphological Analysis System}
 
     \author[1,2]{Jihee Ryu}
     \author[1]{Soojong Lim}
@@ -43,7 +43,7 @@
             \author{Oh-Woog Kwon},
             \author{Seung-Hoon Na}
         } (\cyear{2024}),
-        \ctitle{Improvement of Korean Morphological Analysis System Through Transformer-Based Re-Ranking},
+        \ctitle{Transformer-Based Reranking for Improving Korean Morphological Analysis System},
         \cjournal{ETRI Journal},
         \cvol{under review}.
     }
@@ -108,8 +108,7 @@
 
     \begin{figure*}[ht]
         \centerline{\includegraphics[width=1.0\textwidth]{fig;block-v1}}
-        \caption{Overall process flow of the proposed method. Given morpheme-tagged corpus which consists of pairs of sentences and their morpheme-annotated results (in Section \ref{subsec:korean-morphological-analysis-corpora} ), the corpus preprocessing transforms a morpheme-tagged sentence into a training instance by performing the string alignment between its surface and lemma forms (in Section \ref{subsec:training-example-transformation}). Under the transformed training corpus, the dictionary-based morphological analysis model is trained using the CRF algorithm, thereby constructing morpheme-based lexicon and obtaining lexicon node values and the connection cost matrix which are used to score a morphologinal analysis path (in Section \ref{subsec:training-example-transformation}). Restricting possible paths by the morpheme-based lexicon, we construct a lattice, which compactly represents all possible paths based on a graph of nodes, where a connected path including the starting and ending nodes is considered as a morphological analysis path (in Section \ref{subsec:lattice-construction-and-decoding}). For reranking, we generate secondary paths by alternatively replacing the top nodes in the optimal path by the next-top nodes (i.e. the secondary nodes) (in Section \ref{subsec:secondary-path-generation} ). Once a set of secondary paths is produced, we further apply two-stage reranking methods that 1) first performs the BERT-based reranking over a set of secondary paths (in Section \ref{subsec:bert-based-reranking}) and then 2) carries out the additional reranking module applied on the concatenated input of a reranked path and an original input sentence (in Section \ref{subsec:two-stage-reranking}).  
-        }
+        \caption{Overall process flow of the proposed method. Given morpheme-tagged corpus which consists of pairs of sentences and their morpheme-annotated results (in Section~\ref{subsec:korean-morphological-analysis-corpora}), the corpus preprocessing transforms a morpheme-tagged sentence into a training instance by performing the string alignment between its surface and lemma forms (in Section~\ref{subsec:training-example-transformation}). Under the transformed training corpus, the dictionary-based morphological analysis model is trained using the CRF algorithm, thereby constructing morpheme-based lexicon and obtaining lexicon node values and the connection cost matrix which are used to score a morphologinal analysis path (in Section~\ref{subsec:training-example-transformation}). Restricting possible paths by the morpheme-based lexicon, we construct a lattice, which compactly represents all possible paths based on a graph of nodes, where a connected path including the starting and ending nodes is considered as a morphological analysis path (in Section~\ref{subsec:lattice-construction-and-decoding}). For reranking, we generate secondary paths by alternatively replacing the top nodes in the optimal path by the next-top nodes (i.e. the secondary nodes) (in Section~\ref{subsec:secondary-path-generation}). Once a set of secondary paths is produced, we further apply two-stage reranking methods that 1) first performs the BERT-based reranking over a set of secondary paths (in Section~\ref{subsec:bert-based-reranking}) and then 2) carries out the additional reranking module applied on the concatenated input of a reranked path and an original input sentence (in Section~\ref{subsec:two-stage-reranking}).}
         \label{fig:block}
     \end{figure*}
 
@@ -289,7 +288,7 @@
 
     The deep learning component, particularly the BERT models, plays a pivotal role in identifying and correcting potential inaccuracies in the initial morphological analysis.
     Moreover, by evaluating morphological structures and their contextual alignment, these models significantly contribute to the accuracy of our system, especially in complex linguistic scenarios that require a deeper understanding of language context.
-    The experimental setup and results, detailed in the section 4, provide crucial empirical evidence for the effectiveness of the reranking model.
+    The experimental setup and results, detailed in the section~\ref{sec:results}, provide crucial empirical evidence for the effectiveness of the reranking model.
     These results not only demonstrate the enhanced accuracy achieved through our innovative use of BERT models but also underscore the practical applicability of our approach in real-world Korean language processing tasks.
 
 
